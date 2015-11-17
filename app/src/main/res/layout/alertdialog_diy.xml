@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#cccccc"
     android:gravity="center_horizontal">
 
     <LinearLayout
         android:layout_width="@dimen/height_250"
-        android:layout_height="@dimen/height_180"
+        android:layout_height="@dimen/height_150"
         android:orientation="vertical"
         android:background="@drawable/alert_dialog_bg"
         >
@@ -22,15 +23,27 @@
             android:text="确定么？"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/height_20"
+            android:layout_marginRight="@dimen/height_20"
+            android:layout_marginBottom="@dimen/height_20"
             android:orientation="horizontal">
             <Button
-                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                style="@style/TextStyleWhite"
+                android:layout_marginRight="@dimen/height_20"
+                android:background="@drawable/alertdialog_button_selector"
+                android:text="确定"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 style="@style/TextStyleWhite"
-                android:background="#ffffff"
-                android:text="确定"/>
+                android:background="@drawable/alertdialog_button_selector"
+                android:text="取消"/>
         </LinearLayout>
     </LinearLayout>
 

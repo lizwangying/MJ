@@ -2,9 +2,8 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <solid>
-
-            </solid>
+            <solid android:color="@color/btn_pressed"/>
+            <corners android:radius="@dimen/height_10"/>
         </shape>
     </item>
 </layer-list>
