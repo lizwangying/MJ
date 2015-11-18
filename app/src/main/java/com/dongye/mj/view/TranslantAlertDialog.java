@@ -4,11 +4,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
-import android.view.ViewGroup.LayoutParams;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dongye.mj.R;
@@ -17,7 +15,7 @@ import com.dongye.mj.R;
  * description:一个自定义的透明的AlertDialog
  * author: lizwangying@icloud.com
  * date: 2015-11-16 15:02
- * version:
+ * version: 是
  */
 public class TranslantAlertDialog extends Dialog {
     private Context mContext;
@@ -27,7 +25,6 @@ public class TranslantAlertDialog extends Dialog {
         this.mContext = context;
 
     }
-
 
 
     public TranslantAlertDialog(Context context, int theme) {
@@ -41,7 +38,7 @@ public class TranslantAlertDialog extends Dialog {
 //        setContentView(R.layout.alertdialog_diy);
 //    }
 
-    public static class Builder{
+    public static class Builder {
         private Context context;
         private String title;
         private String message;
@@ -63,8 +60,8 @@ public class TranslantAlertDialog extends Dialog {
         /**
          * Set the Dialog message from resource
          *
-         * @param message
-         * @return
+         * @param message 消息
+         * @return Builder实例
          */
         public Builder setMessage(int message) {
             this.message = (String) context.getText(message);
@@ -74,8 +71,8 @@ public class TranslantAlertDialog extends Dialog {
         /**
          * Set the Dialog title from resource
          *
-         * @param title
-         * @return
+         * @param title 就是个标题
+         * @return Builder
          */
         public Builder setTitle(int title) {
             this.title = (String) context.getText(title);
@@ -85,8 +82,8 @@ public class TranslantAlertDialog extends Dialog {
         /**
          * Set the Dialog title from String
          *
-         * @param title
-         * @return
+         * @param title 还是个标题
+         * @return Builder
          */
 
         public Builder setTitle(String title) {
@@ -102,8 +99,8 @@ public class TranslantAlertDialog extends Dialog {
         /**
          * Set the positive button resource and it's listener
          *
-         * @param positiveButtonText
-         * @return
+         * @param positiveButtonText 取消按钮你想说啥？
+         * @return Builder
          */
         public Builder setPositiveButton(int positiveButtonText,
                                          DialogInterface.OnClickListener listener) {
@@ -136,69 +133,40 @@ public class TranslantAlertDialog extends Dialog {
         }
 
         public TranslantAlertDialog create() {
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            // instantiate the dialog with the custom Theme
-            final TranslantAlertDialog dialog = new TranslantAlertDialog(context,R.style.MyAlertDialog);
+            //初始化dialog，并且加上自定义的style
+            final TranslantAlertDialog dialog = new TranslantAlertDialog(context, R.style.MyAlertDialog);
+            //Layoutinflater 居然还要用到服务？
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = inflater.inflate(R.layout.alertdialog_diy, null);
-            dialog.addContentView(layout, new ViewGroup.LayoutParams(
-                    LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-            // set the dialog title
-            ((TextView) layout.findViewById(R.id.title)).setText(title);
-            // set the confirm button
-            if (positiveButtonText != null) {
-                ((Button) layout.findViewById(R.id.positiveButton))
-                        .setText(positiveButtonText);
-                if (positiveButtonClickListener != null) {
-                    ((Button) layout.findViewById(R.id.positiveButton))
-                            .setOnClickListener(new View.OnClickListener() {
-                                public void onClick(View v) {
-                                    positiveButtonClickListener.onClick(dialog,
-                                            DialogInterface.BUTTON_POSITIVE);
-                                }
-                            });
+            //设置Dialog的Title,哈哈，我这么美的对话框当然没有title了,以后再加
+//            layout.findViewById(R.id.title)
+            layout.findViewById(R.id.dialog_message);
+            dialog.addContentView(layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            //设置message
+            ((TextView)layout.findViewById(R.id.dialog_message)).setText(message);
+            //设置确定button和他的监听事件！这个简直是绝了
+            Button posBtn = (Button)layout.findViewById(R.id.positiveButton);
+            if (positiveButtonText != null){
+                posBtn.setText(positiveButtonText);
+                if (positiveButtonClickListener != null){
+                    posBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            positiveButtonClickListener.onClick(dialog,DialogInterface.BUTTON_POSITIVE);
+                        }
+                    });
                 }
-            } else {
-                // if no confirm button just set the visibility to GONE
-                layout.findViewById(R.id.positiveButton).setVisibility(
-                        View.GONE);
+            }else{
+                //如果没有确定按钮就让它去死吧~GONE
+                posBtn.setVisibility(View.GONE);
             }
-            // set the cancel button
-            if (negativeButtonText != null) {
-                ((Button) layout.findViewById(R.id.negativeButton))
-                        .setText(negativeButtonText);
-                if (negativeButtonClickListener != null) {
-                    ((Button) layout.findViewById(R.id.negativeButton))
-                            .setOnClickListener(new View.OnClickListener() {
-                                public void onClick(View v) {
-                                    negativeButtonClickListener.onClick(dialog,
-                                            DialogInterface.BUTTON_NEGATIVE);
-                                }
-                            });
-                }
-            } else {
-                // if no confirm button just set the visibility to GONE
-                layout.findViewById(R.id.negativeButton).setVisibility(
-                        View.GONE);
-            }
-            // set the content message
-            if (message != null) {
-                ((TextView) layout.findViewById(R.id.message)).setText(message);
-            } else if (contentView != null) {
-                // if no message set
-                // add the contentView to the dialog body
-                ((LinearLayout) layout.findViewById(R.id.content))
-                        .removeAllViews();
-                ((LinearLayout) layout.findViewById(R.id.content))
-                        .addView(contentView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
-            }
-            dialog.setContentView(layout);
+
             return dialog;
         }
     }
 
 }
 
-    
-}
+
+
 
