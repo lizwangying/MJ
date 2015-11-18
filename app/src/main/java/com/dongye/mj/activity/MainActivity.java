@@ -23,8 +23,9 @@ public class MainActivity extends BaseActivity {
         //初始化
         //wish you happy
         //Are you happy?---from happy
-        //Do you love git?
 
+
+        //I am happy and I still love git
     }
 
     @Override
