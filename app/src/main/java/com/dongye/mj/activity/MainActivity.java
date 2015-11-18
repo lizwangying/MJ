@@ -23,6 +23,9 @@ public class MainActivity extends BaseActivity {
         //初始化
         //wish you happy
         //Are you happy?---from happy
+        //Do you love git?
+        //Whatever, I still love git~   --from lovegit
+
 
     }
 
@@ -30,7 +33,7 @@ public class MainActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.alertdialog:
-                mAlertDialog = new AlertDialog.Builder(MainActivity.this).create();
+//                mAlertDialog = new AlertDialog.Builder(MainActivity.this).create();
 
                 break;
         }
