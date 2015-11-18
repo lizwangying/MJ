@@ -22,6 +22,7 @@ public class MainActivity extends BaseActivity {
     public void initView() {
         //初始化
         //wish you happy
+        //Are you happy?---from happy
 
     }
 
