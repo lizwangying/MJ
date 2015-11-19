@@ -21,15 +21,18 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView() {
         //初始化
+        //wish you happy
+        //Are you happy?---from happy
 
 
+        //I am happy and I still love git
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.alertdialog:
-                mAlertDialog = new AlertDialog.Builder(MainActivity.this).create();
+//                mAlertDialog = new AlertDialog.Builder(MainActivity.this).create();
 
                 break;
         }
