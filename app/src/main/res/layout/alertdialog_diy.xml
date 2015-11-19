@@ -1,50 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#cccccc"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="@dimen/height_250"
         android:layout_height="@dimen/height_150"
-        android:orientation="vertical"
         android:background="@drawable/alert_dialog_bg"
-        >
+        android:orientation="vertical">
+
         <TextView
+            android:id="@+id/dialog_message"
+            style="@style/TextStyleWhite"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
             android:layout_weight="1"
             android:gravity="center"
-            style="@style/TextStyleWhite"
-            android:layout_gravity="center_horizontal"
-            android:text="确定么？" android:id="@+id/dialog_message"/>
+            android:text="确定么？" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_marginBottom="@dimen/height_20"
             android:layout_marginLeft="@dimen/height_20"
             android:layout_marginRight="@dimen/height_20"
-            android:layout_marginBottom="@dimen/height_20"
+            android:gravity="center"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/positiveButton"
-                android:layout_height="wrap_content"
-                android:layout_width="0dp"
-                android:layout_weight="1"
                 style="@style/TextStyleWhite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/height_20"
-                android:background="@drawable/alertdialog_button_selector"
-                android:text="确定"/>
-            <Button
-                android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
-                style="@style/TextStyleWhite"
                 android:background="@drawable/alertdialog_button_selector"
-                android:text="取消"/>
+                android:text="确定" />
+
+            <Button
+                style="@style/TextStyleWhite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/alertdialog_button_selector"
+                android:text="取消" />
         </LinearLayout>
     </LinearLayout>
 

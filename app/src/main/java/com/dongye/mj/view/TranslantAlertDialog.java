@@ -1,5 +1,6 @@
 package com.dongye.mj.view;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -29,7 +30,7 @@ public class TranslantAlertDialog extends Dialog {
 
     public TranslantAlertDialog(Context context, int theme) {
         super(context, theme);
-        this.mContext = mContext;
+        this.mContext = context;
     }
 
 //    @Override
@@ -136,10 +137,24 @@ public class TranslantAlertDialog extends Dialog {
             //初始化dialog，并且加上自定义的style
             final TranslantAlertDialog dialog = new TranslantAlertDialog(context, R.style.MyAlertDialog);
             //Layoutinflater 居然还要用到服务？
+            //TODO 得到LayoutInflater有很多中方法 ,一般怎么简单怎么写，这是我同事写的。其实直接用View.inflate()也可以;
+            /**
+                获得 LayoutInflater 实例的三种方式
+                1.LayoutInflater inflater = getLayoutInflater();  //调用Activity的getLayoutInflater()
+
+                2.LayoutInflater localinflater =(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                3. LayoutInflater inflater = LayoutInflater.from(context);
+             */
+
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = inflater.inflate(R.layout.alertdialog_diy, null);
+            //等价下面一行
+            //View layout = View.inflate(context,R.layout.alertdialog_diy,null);
+
             //设置Dialog的Title,哈哈，我这么美的对话框当然没有title了,以后再加
 //            layout.findViewById(R.id.title)
+            //TODO find完就不管了？
             layout.findViewById(R.id.dialog_message);
             dialog.addContentView(layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             //设置message
@@ -157,6 +172,7 @@ public class TranslantAlertDialog extends Dialog {
                     });
                 }
             }else{
+                //TODO 一般都要有确定按钮，取消可以没有
                 //如果没有确定按钮就让它去死吧~GONE
                 posBtn.setVisibility(View.GONE);
             }
