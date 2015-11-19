@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#cccccc"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#cccccc"
+              android:gravity="center_horizontal"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="@dimen/height_250"
@@ -12,15 +12,23 @@
         android:background="@drawable/alert_dialog_bg"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/dialog_message"
-            style="@style/TextStyleWhite"
+        <LinearLayout
+            android:id="@+id/content"
             android:layout_width="wrap_content"
+            android:orientation="horizontal"
             android:layout_height="0dp"
-            android:layout_gravity="center_horizontal"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="确定么？" />
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/dialog_message"
+                style="@style/TextStyleWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="确定么？"/>
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,7 +47,7 @@
                 android:layout_marginRight="@dimen/height_20"
                 android:layout_weight="1"
                 android:background="@drawable/alertdialog_button_selector"
-                android:text="确定" />
+                android:text="确定"/>
 
             <Button
                 style="@style/TextStyleWhite"
@@ -47,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/alertdialog_button_selector"
-                android:text="取消" />
+                android:text="取消" android:id="@+id/negativeButton"/>
         </LinearLayout>
     </LinearLayout>
 

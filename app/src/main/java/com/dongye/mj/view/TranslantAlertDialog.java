@@ -1,6 +1,5 @@
 package com.dongye.mj.view;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dongye.mj.R;
@@ -151,14 +151,17 @@ public class TranslantAlertDialog extends Dialog {
             View layout = inflater.inflate(R.layout.alertdialog_diy, null);
             //等价下面一行
             //View layout = View.inflate(context,R.layout.alertdialog_diy,null);
-
             //设置Dialog的Title,哈哈，我这么美的对话框当然没有title了,以后再加
 //            layout.findViewById(R.id.title)
-            //TODO find完就不管了？
-            layout.findViewById(R.id.dialog_message);
+            if (message != null){
+                ((TextView)layout.findViewById(R.id.dialog_message)).setText(message);
+            }else if (contentView != null){//如果外部设置了contentView，恩，这个就是用来addview的
+                LinearLayout mContent = (LinearLayout) layout.findViewById(R.id.content);
+                mContent.removeAllViews();//删掉里面我的message
+                mContent.addView(contentView,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            }
             dialog.addContentView(layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-            //设置message
-            ((TextView)layout.findViewById(R.id.dialog_message)).setText(message);
+
             //设置确定button和他的监听事件！这个简直是绝了
             Button posBtn = (Button)layout.findViewById(R.id.positiveButton);
             if (positiveButtonText != null){
@@ -172,11 +175,25 @@ public class TranslantAlertDialog extends Dialog {
                     });
                 }
             }else{
-                //TODO 一般都要有确定按钮，取消可以没有
-                //如果没有确定按钮就让它去死吧~GONE
                 posBtn.setVisibility(View.GONE);
             }
 
+            //下面该取消按钮
+            Button negBtn = (Button)layout.findViewById(R.id.negativeButton);
+            if (negativeButtonText != null){
+                negBtn.setText(negativeButtonText);
+                if (negativeButtonClickListener != null){
+                    negBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            negativeButtonClickListener.onClick(dialog,DialogInterface.BUTTON_NEGATIVE);
+                        }
+                    });
+                }
+            }else{
+                negBtn.setVisibility(View.GONE);
+            }
+            dialog.setContentView(layout);
             return dialog;
         }
     }
