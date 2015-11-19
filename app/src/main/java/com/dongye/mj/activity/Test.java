@@ -105,20 +105,26 @@ public class Test extends BaseActivity {
         }
 
         //接受服务端消息
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            while (!Test.this.isFinishing()) {
-                String msg = br.readLine();
-                LogUtil.i("receive: " + msg);
-                if (msg != null) {
-                    String time = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date(System.currentTimeMillis()));
-                    final String showedMsg = "server " + time + ":\t" + msg + "\n";
-                    mHandler.obtainMessage(MESSAGE_RECEIVE_NEW_MSG, showedMsg).sendToTarget();
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    BufferedReader br = new BufferedReader(new InputStreamReader(mClientSocket.getInputStream()));
+                    while (!Test.this.isFinishing()) {
+                        String msg = br.readLine();
+                        LogUtil.i("receive: " + msg);
+                        if (msg != null) {
+                            String time = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date(System.currentTimeMillis()));
+                            final String showedMsg = "server " + time + ":\t" + msg + "\n";
+                            mHandler.obtainMessage(MESSAGE_RECEIVE_NEW_MSG, showedMsg).sendToTarget();
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        }.start();
 
     }
 

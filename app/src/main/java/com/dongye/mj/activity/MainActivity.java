@@ -11,7 +11,8 @@ import butterknife.Bind;
 
 public class MainActivity extends BaseActivity {
 
-    @Bind(R.id.alertdialog)private Button alertDialog;
+    @Bind(R.id.alertdialog)
+    Button alertDialog;
     private AlertDialog mAlertDialog;
     @Override
     protected int getLayoutId() {
