@@ -2,6 +2,7 @@ package com.dongye.mj.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ public class MainActivity extends BaseActivity {
     public void initView() {
         //初始化
         alertDialog.setOnClickListener(this);
+        Log.i("haha","what if i don't want to learn");
     }
 
     @Override
