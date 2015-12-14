@@ -30,6 +30,7 @@ public class MainActivity extends BaseActivity {
         Log.i("haha","what if i don't want to learn");
         //what shoule I do if I lose you
 
+        //what should I do ,I don't want to do anything...
     }
 
     @Override
