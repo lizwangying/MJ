@@ -28,6 +28,7 @@ public class MainActivity extends BaseActivity {
         //初始化
         alertDialog.setOnClickListener(this);
         Log.i("haha","what if i don't want to learn");
+        //what should I do ,I don't want to do anything...
     }
 
     @Override
