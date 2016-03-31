@@ -2,7 +2,7 @@ package com.dongye.mj.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.util.Log;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -18,19 +18,19 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.alertdialog)
     Button alertDialog;
     private AlertDialog mAlertDialog;
+
     @Override
-    protected int getLayoutId() {
-        return R.layout.activity_main;
+    protected void onBeforeSetContentLayout() {
+        setLayoutId(R.layout.activity_main);
+        setOverlayViewId(R.id.gov_main);
     }
 
     @Override
     public void initView() {
         //初始化
         alertDialog.setOnClickListener(this);
-        Log.i("haha","what if i don't want to learn");
-        //what shoule I do if I lose you
 
-        //what should I do ,I don't want to do anything...
+
     }
 
     @Override
@@ -44,6 +44,7 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
+                        startActivity(new Intent(MainActivity.this,LoginActivity.class));
                         Toast.makeText(MainActivity.this, "开心就好", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -51,6 +52,7 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
+                        startActivity(new Intent(MainActivity.this,LoginActivitySystem.class));
                         Toast.makeText(MainActivity.this,"不开心也好",Toast.LENGTH_SHORT).show();
                     }
                 });

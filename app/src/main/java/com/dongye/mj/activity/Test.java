@@ -71,7 +71,7 @@ public class Test extends BaseActivity {
     };
 
     @Override
-    protected int getLayoutId() {
+    public int getLayoutId() {
         return R.layout.activity_main;
     }
 
