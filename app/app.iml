@@ -108,15 +108,11 @@
     <orderEntry type="library" exported="" name="support-v4-22.2.1" level="project" />
     <orderEntry type="library" exported="" name="okhttp-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.2.1" level="project" />
-    <orderEntry type="library" exported="" name="bmob-im-1.1.9" level="project" />
     <orderEntry type="library" exported="" name="fbcore-0.7.0" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.2.1" level="project" />
     <orderEntry type="library" exported="" name="imagepipeline-okhttp-0.7.0" level="project" />
-    <orderEntry type="library" exported="" name="bmob-sdk-3.4.3" level="project" />
     <orderEntry type="library" exported="" name="imagepipeline-0.7.0" level="project" />
-    <orderEntry type="library" exported="" name="bmob-push-0.6" level="project" />
     <orderEntry type="library" exported="" name="fresco-0.7.0" level="project" />
-    <orderEntry type="library" exported="" name="bmob-sms-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="bolts-android-1.1.4" level="project" />
     <orderEntry type="library" exported="" name="okio-1.4.0" level="project" />
     <orderEntry type="library" exported="" name="drawee-0.7.0" level="project" />

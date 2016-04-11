@@ -18,7 +18,7 @@
         android:orientation="vertical">
 
 
-        <com.dongye.mj.view.MaterialTextField
+        <com.liz.mj.view.MaterialTextField
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/width_20"
@@ -33,31 +33,31 @@
             android:textColor="@color/white"
             android:textSize="@dimen/textSize_18"
             />
-    </com.dongye.mj.view.MaterialTextField>
-        <com.dongye.mj.view.MaterialTextField
+    </com.liz.mj.view.MaterialTextField>
+        <com.liz.mj.view.MaterialTextField
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/width_20"
             android:paddingRight="@dimen/width_20"
-            app:mtf_image="@mipmap/icon_user"
+            app:mtf_image="@mipmap/icon_pwd"
             android:layout_marginTop="@dimen/width_10"
             >
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="用户名:"
+                android:hint="密码:"
                 android:textColor="@color/white"
                 android:textSize="@dimen/textSize_18"
                 />
-        </com.dongye.mj.view.MaterialTextField>
+        </com.liz.mj.view.MaterialTextField>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@mipmap/icon_btn_bg"
+            android:background="@drawable/btn_selector"
             android:layout_marginLeft="@dimen/width_20"
             android:layout_marginRight="@dimen/width_20"
             android:layout_marginTop="@dimen/width_40"
-            android:textColor="@color/white"
+            android:textColor="@drawable/text_color_selector"
             android:text="登录"
             android:textSize="@dimen/textSize_23"
             />
@@ -69,21 +69,24 @@
             android:layout_marginRight="@dimen/width_20"
             android:layout_marginLeft="@dimen/width_20"
             >
-            <ImageView
-                android:layout_width="0dp"
+            <ImageButton
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@mipmap/icon_qq"/>
-            <ImageView
-                android:layout_width="0dp"
+                android:layout_marginLeft="@dimen/width_20"
+                android:background="@drawable/icon_qq_selector"/>
+            <View
+                style="@style/ViewHorizontalWeightWidget"/>
+            <ImageButton
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@mipmap/icon_weichat"/>
-            <ImageView
-                android:layout_width="0dp"
+                android:background="@drawable/icon_we_chat_selector"/>
+            <View
+                style="@style/ViewHorizontalWeightWidget"/>
+            <ImageButton
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@mipmap/icon_sina"/>
+                android:layout_marginRight="@dimen/width_20"
+                android:background="@drawable/icon_sina_selector"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

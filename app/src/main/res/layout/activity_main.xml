@@ -1,69 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".MainActivity">
-
-
-        <TextView
-            android:id="@+id/tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"/>
-
-        <LinearLayout
-            android:id="@+id/linear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/et_num"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:inputType="number"
-                android:hint="个数"/>
-
-            <EditText
-                android:id="@+id/et_money"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:inputType="number"
-                android:hint="金额"/>
-
-            <Button
-                android:id="@+id/send"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="发红包"/>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/grab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/linear"
-            android:layout_marginTop="20dp"
-            android:text="抢红包"/>
-        <Button
-            android:id="@+id/alertdialog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="diy alert dialog"
-            android:layout_below="@id/grab"
-            />
-
-        <com.dongye.mj.view.MySurfaceView
+        android:layout_height="match_parent">
+        <com.liz.mj.view.MySurfaceView
             android:id="@+id/surface_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
@@ -72,5 +15,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </RelativeLayout>
-</ScrollView>
+
+    <Button
+        android:id="@+id/alertdialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="diy alert dialog"
+        />
+
+</RelativeLayout>
 
