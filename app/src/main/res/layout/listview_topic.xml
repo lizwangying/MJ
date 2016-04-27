@@ -7,6 +7,7 @@
 
     <LinearLayout
         style="@style/LinearLayoutVertical"
+        android:layout_height="match_parent"
         android:paddingLeft="@dimen/width_20"
         android:paddingRight="@dimen/width_20"
         android:gravity="center"
@@ -31,10 +32,11 @@
 
     <LinearLayout
         style="@style/LinearLayoutVertical"
+        android:layout_width="match_parent"
         android:paddingTop="@dimen/height_5"
         android:paddingBottom="@dimen/height_5"
-        android:layout_marginLeft="@dimen/height_20"
-        android:layout_marginRight="@dimen/height_20">
+        android:paddingLeft="@dimen/height_20"
+        android:paddingRight="@dimen/height_20">
 
         <TextView
             android:id="@+id/text_time"
@@ -44,7 +46,7 @@
         <TextView
             android:id="@+id/text_topic"
             style="@style/TextViewParentGrey"
-            android:textSize="@dimen/textSize_20"
+            android:textSize="@dimen/textSize_18"
             android:layout_marginTop="@dimen/height_10"
             android:maxLines="3"
             android:ellipsize="end"

@@ -3,7 +3,6 @@ package com.liz.mj.adapter;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +44,6 @@ public class BannerImagePagerAdapter extends PagerAdapter {
         View view = LayoutInflater.from(context).inflate(R.layout.layout_banner,container,false);
         String imageUri = imagesList.get(position).getImageResource().getFileUrl(context);
         Uri uri = Uri.parse(imageUri);
-        Log.e("haha", "--adapter--"+imageUri);
         SimpleDraweeView draweeView = (SimpleDraweeView) view.findViewById(R.id.image_banner_drawee);
         draweeView.setImageURI(uri);
         container.addView(view,0);
