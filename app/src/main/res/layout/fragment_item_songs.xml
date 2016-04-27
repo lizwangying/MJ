@@ -18,13 +18,13 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_250">
 
-            <com.facebook.drawee.view.SimpleDraweeView
+            <!--<com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 fresco:fadeDuration="300"
                 android:scaleType="center"
-                />
+                />-->
             <android.support.v4.view.ViewPager
                 android:id="@+id/view_banner_viewpager"
                 android:layout_width="match_parent"
@@ -61,7 +61,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/width_10"
+            android:layout_marginTop="@dimen/width_15"
             android:layout_marginBottom="@dimen/width_10"
             android:orientation="horizontal">
 

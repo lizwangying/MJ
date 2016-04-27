@@ -45,9 +45,10 @@ public class BannerImagePagerAdapter extends PagerAdapter {
         View view = LayoutInflater.from(context).inflate(R.layout.layout_banner,container,false);
         String imageUri = imagesList.get(position).getImageResource().getFileUrl(context);
         Uri uri = Uri.parse(imageUri);
-        Log.e("haha", "----"+imageUri);
+        Log.e("haha", "--adapter--"+imageUri);
         SimpleDraweeView draweeView = (SimpleDraweeView) view.findViewById(R.id.image_banner_drawee);
         draweeView.setImageURI(uri);
+        container.addView(view,0);
         return view;
     }
 

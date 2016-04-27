@@ -2,7 +2,6 @@ package com.liz.mj.fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -17,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.liz.mj.R;
 import com.liz.mj.adapter.BannerImagePagerAdapter;
 import com.liz.mj.adapter.HopTopicAdapter;
@@ -48,8 +46,8 @@ public class FragmentSongs extends Fragment {
     ListView listviewHotTopic;
     @Bind(R.id.view_banner_viewpager)
     ViewPager bannerViewPager;
-    @Bind(R.id.image)
-    SimpleDraweeView img;
+//    @Bind(R.id.image)
+//    SimpleDraweeView img;
 
     private ScheduledExecutorService scheduledExecutorService;
     private BannerImagePagerAdapter bannerAdapter;
@@ -132,21 +130,10 @@ public class FragmentSongs extends Fragment {
                 if (e == null) {
                     List<BannerPicture> list = bmobQueryResult.getResults();
                     if (list != null && list.size() > 0) {
-                        for (BannerPicture picture : list) {
-                            String imageUrlFromBmob = picture.getImageResource().getFileUrl(getActivity());
-//                            imageUrl.add(imageUrlFromBmob);
-                            //banner 图片viewpager设置适配器
-                            Uri uri = Uri.parse(imageUrlFromBmob);
-
-                            img.setImageURI(uri);
-
-
-
                             BannerImagePagerAdapter adapter = new BannerImagePagerAdapter(getActivity(), list);
                             bannerViewPager.setAdapter(adapter);
 //                            bannerViewPager.setCurrentItem();
-                            adapter.notifyDataSetChanged();//显示当前位置的item
-                        }
+//                            adapter.notifyDataSetChanged();//显示当前位置的item
                     } else {
                         Toast.makeText(getActivity(), "无banner图片", Toast.LENGTH_SHORT).show();
                     }
