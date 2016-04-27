@@ -112,6 +112,23 @@
             android:divider="@color/light_grey"
             android:dividerHeight="@dimen/height_0.5"
             />
+        <LinearLayout
+            style="@style/LinearLayoutHorizontalPadding"
+            android:layout_marginTop="@dimen/width_20"
+            >
+
+            <TextView
+                style="@style/TextHead2Style"
+                android:text="最近新闻"
+                android:drawableLeft="@mipmap/icon_fire"
+                />
+
+            <View
+                style="@style/ViewHorizontalWeightWidget"/>
+
+            <TextView
+                style="@style/TextViewMoreStyle"/>
+        </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/list"
