@@ -7,13 +7,14 @@ import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.Calendar;
 
 /**
  * description: 一些工具类 <br>
- * author: dongyeforever@foxmail.com <br>
  * date: 2015/5/1 14:39 <br>
  */
 public class UIUtil {
@@ -70,7 +71,6 @@ public class UIUtil {
 
     /**
      * description: tv显示，日期选择 <br>
-     * author: dongyeforever@foxmail.com <br>
      * date: 2015/6/10 17:30 <br>
      * version: 1.0.1
      */
@@ -106,7 +106,6 @@ public class UIUtil {
 
     /**
      * description: tv显示，日期选择 <br>
-     * author: dongyeforever@foxmail.com <br>
      * date: 2015/6/10 17:30 <br>
      * version: 1.0.1
      */
@@ -136,4 +135,35 @@ public class UIUtil {
             datePickerDialog.getDatePicker().setMaxDate(c.getTimeInMillis());
         datePickerDialog.show();
     }
+
+    /**
+     * description: 动态设置listview的高度，依据子item的高度动态测量
+     * author: https://github.com/lizwangying
+     * @param  listView 你需要测量的
+     * date:  2016/4/26 12:05
+     * version:
+     */
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0) {
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+            }
+            view.measure(desiredWidth, ViewGroup.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+    }
+
+
 }

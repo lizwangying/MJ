@@ -29,4 +29,65 @@
         <item name="android:layout_height">1dp</item>
         <item name="android:layout_weight">1</item>
     </style>
+
+    <style name="TextViewLinearHorizontalWeight1">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/darker_grey</item>
+        <item name="android:textSize">@dimen/textSize_16</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:drawablePadding">@dimen/width_10</item>
+    </style>
+
+    <style name="DividerLineView">
+        <item name="android:background">@color/light_grey</item>
+        <item name="android:layout_height">@dimen/height_0.5</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="TextHead2Style" parent="TextViewParentGrey">
+        <item name="android:drawablePadding">@dimen/height_5</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/textSize_18</item>
+    </style>
+
+    <style name="TextViewMoreStyle" parent="TextViewParentGrey">
+        <item name="android:textSize">@dimen/textSize_14</item>
+        <item name="android:text">@string/text_more</item>
+    </style>
+
+    <style name="TextViewParentGrey" parent="MeasureWrapContent">
+        <item name="android:textColor">@color/darker_grey</item>
+        <item name="android:textSize">@dimen/textSize_16</item>
+    </style>
+
+    <style name="LinearLayoutHorizontalPadding" parent="LinearLayoutHorizontal">
+        <item name="android:paddingLeft">@dimen/width_10</item>
+        <item name="android:paddingRight">@dimen/width_10</item>
+    </style>
+    <style name="LinearLayoutHorizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="DividerLineVertical">
+        <item name="android:layout_width">@dimen/height_0.5</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/light_grey</item>
+    </style>
+    <style name="LinearLayoutVertical" parent="MeasureWrapContent">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+    <style name="ImageViewDots" >
+        <item name="android:layout_marginLeft">@dimen/height_2</item>
+        <item name="android:layout_marginRight">@dimen/height_2</item>
+        <item name="android:layout_width">@dimen/height_5</item>
+        <item name="android:layout_height">@dimen/height_5</item>
+    </style>
+    <style name="MeasureWrapContent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>

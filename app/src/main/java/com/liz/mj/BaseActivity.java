@@ -17,7 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import com.liz.mj.util.LogUtil;
+import com.liz.mj.activity.LoginActivity;
 import com.liz.mj.view.MySurfaceView;
 
 import java.io.File;
@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 import butterknife.ButterKnife;
+import cn.bmob.v3.Bmob;
 
 /**
  * description: 所有activity的基类
@@ -49,8 +50,14 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppManager.getAppManager().addActivity(this);
-
-        overlayViewId = getOverlayViewId();
+        //初始化Bmob
+        Bmob.initialize(this,"3c5885ebb8bb40b1c7b3b3a818d17f7c");
+        //手势绘图区域
+        if(getOverlayViewId() != 0){//如果有手势需求
+            overlayViewId = getOverlayViewId();
+            gov = (GestureOverlayView) this.findViewById(overlayViewId);
+            initGestureProcess();
+        }
         onBeforeSetContentLayout();
         if (getLayoutId() != 0) {
             setContentView(getLayoutId());
@@ -58,12 +65,12 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         // 通过注解绑定控件
         ButterKnife.bind(this);
         init(savedInstanceState);
+
         initView();
         initData();
-
-
-        LogUtil.e("---------base oncreate----------");
     }
+
+
 
     @Override
     protected void onDestroy() {
@@ -98,7 +105,10 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void init(Bundle savedInstanceState) {
     }
-
+    public void initView() {
+    }
+    public void initData() {
+    }
     //跳转到Activity
     public void toActivity(Class<?> activity) {
         startActivity(new Intent(this, activity));
@@ -176,10 +186,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void initView() {
-        Log.e("haha","---------initview----------");
-        gov = (GestureOverlayView) this.findViewById(getOverlayViewId());
-        Log.e("haha","-govid--"+getOverlayViewId());
+    public void initGestureProcess() {
         gov.setGestureStrokeType(GestureOverlayView.GESTURE_STROKE_TYPE_SINGLE);//设置笔画的类型
 //		gov.setGestureStrokeType(GestureOverlayView.GESTURE_STROKE_TYPE_MULTIPLE);
         path = new File(Environment.getExternalStorageDirectory(), "gestures").getAbsolutePath();
@@ -189,7 +196,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         gov.addOnGestureListener(new GestureOverlayView.OnGestureListener() {//绑定手写绘图区域
             @Override
             public void onGestureStarted(GestureOverlayView gestureOverlayView, MotionEvent motionEvent) {
-                Log.e("haha","开始手写啦");
+                Log.e("haha", "开始手写啦");
             }
 
             @Override
@@ -199,15 +206,13 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onGestureEnded(GestureOverlayView gestureOverlayView, MotionEvent motionEvent) {
                 gesture = gestureOverlayView.getGesture();//从绘图区域获得当前的手势
-//				if (gesture.getStrokesCount() == 1){//默认一笔画，但是一开始你设置的就是一笔，所以始终为1
-//				if (motionEvent.getAction() == MotionEvent.ACTION_UP){//判断第某笔画离开屏幕
-//				if (gesture.getLength() == 100){//判定笔画长度达到100像素
-
-                addMyGesture("haha",gesture);
-
-//				}
-//				}
-//				}
+                if (gesture.getStrokesCount() == 1) {//默认一笔画，但是一开始你设置的就是一笔，所以始终为1
+                    if (motionEvent.getAction() == MotionEvent.ACTION_UP) {//判断第某笔画离开屏幕
+                        if (gesture.getLength() >= 100) {//判定笔画长度达到100像素
+                            addMyGesture("findGesture", gesture);
+                        }
+                    }
+                }
 
             }
 
@@ -215,11 +220,18 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
             public void onGestureCancelled(GestureOverlayView gestureOverlayView, MotionEvent motionEvent) {
             }
         });
+
+        //----这里是在程序启动的时候进行遍历所有手势!------
+        if (!gestureLibrary.load()) {
+            showToast("手势仓库加载失败");
+        } else {
+            Set<String> set = gestureLibrary.getGestureEntries();//取出所有手势
+            Object ob[] = set.toArray();
+            loadAllGesture(set, ob);
+        }
     }
 
-    public void initData() {
 
-    }
 
     public void addMyGesture(String name, Gesture gesture) {
         try {
@@ -234,33 +246,34 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                             gov.clear(true);//清除笔画
                             gestureToImage(gesture);
                             showToast("手势保存成功");
-                        }else{
+                            Log.e("haha","手势保存成功");
+                        } else {
                             showToast("保存手势失败");
                         }
-                    }else{//当存在文件的时候把新的替换旧的，旧的删掉
+                    } else {//当存在文件的时候把新的替换旧的，旧的删掉
                         //读取手势文件，得到手势
-                        if (!gestureLibrary.load()){//读取失败
+                        if (!gestureLibrary.load()) {//读取失败
                             showToast("手势读取失败");
-                        }else{//读取成功
+                        } else {//读取成功
                             Set<String> set = gestureLibrary.getGestureEntries();//取出所有手势
                             Object obj[] = set.toArray();
                             boolean isHaveGesture = false;
-                            for (int i = 0; i < obj.length ; i++) {
+                            for (int i = 0; i < obj.length; i++) {
                                 if (obj[i].equals(name)) {
                                     isHaveGesture = true;
                                 }
                                 if (isHaveGesture) {//替换旧的，旧的删掉
                                     gestureLibrary.removeEntry(name);
 //                                    gestureLibrary.removeGesture(name,gesture);
-                                    gestureLibrary.addGesture(name,gesture);
-                                }else{
-                                    gestureLibrary.addGesture(name,gesture);
+                                    gestureLibrary.addGesture(name, gesture);
+                                } else {
+                                    gestureLibrary.addGesture(name, gesture);
                                 }
                                 if (gestureLibrary.save()) {
                                     gov.clear(true);//清除笔画
                                     gestureToImage(gesture);
                                     showToast("手势保存成功");
-                                }else{
+                                } else {
                                     showToast("手势保存失败");
                                 }
 
@@ -268,7 +281,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
                         }
                     }
-                }else{
+                } else {
                     showToast("没有sdcard");
                 }
             }
@@ -278,15 +291,15 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void loadAllGesture(Set<String> set,Object ob[]) {
+    public void loadAllGesture(Set<String> set, Object ob[]) {
         if (gestureLibrary.load()) {
             set = gestureLibrary.getGestureEntries();
             ob = set.toArray();
             for (int i = 0; i < ob.length; i++) {
-                gestureToImage(gestureLibrary.getGestures((String)ob[i]).get(0));
-                MySurfaceView.vector_string.addElement((String)ob[i]);//把手势名字也保存下来
+                gestureToImage(gestureLibrary.getGestures((String) ob[i]).get(0));
+                MySurfaceView.vector_string.addElement((String) ob[i]);//把手势名字也保存下来
             }
-        }else{
+        } else {
             showToast("读取手势失败");
         }
 
@@ -301,32 +314,40 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void findMyGesture(Gesture gesture) {
+        showToast("find gesture");
         try {
             if (Environment.getExternalStorageState() != null) {//试探终端是否有sdcard
-                if (!file.exists()) {//手势文件不存在
-                    showToast("匹配手势失败，因为手势文件不存在");
-                    if (!gestureLibrary.load()) {//读取手势
-                        showToast("手势读取失败");
-                    } else {
+                if ( !file.exists()){//手势文件不存在
+                    showToast("手势文件不存在，请重新创建");
+                }else{//当存在此文件的时候我们需要删除此手势然后把新的手势放上
+                    //读取已经存在的文件，得到文件中的所有手势
+                    if (!gestureLibrary.load()){//如果文件读取失败
+                        showToast("手势文件读取失败");
+                    }else{
                         List<Prediction> predictions = gestureLibrary.recognize(gesture);
-                        //recognize返回的是一个集合，包含了所有匹配的gesture
-                        //从手势库中查询匹配的结果，有可能有多个相似的结果
-                        if (!predictions.isEmpty()) {
-                            Prediction prediction = predictions.get(0);
-                            //prediction的属性score表示了与手势的相似程度，通常不考虑小于1的情况
-                            //prediction的属性name表示了手势对应的名称
-                            if (prediction.score > 1) {
-                                showToast("匹配的手势为" + prediction.name);
+                        /*
+                        * recognize()返回的是一个prediction集合，包含了所有与gesture匹配的结果
+                        * 匹配的结果可能有多个相似的结果
+                        * */
+                        if (!predictions.isEmpty()){
+                            Prediction pre = predictions.get(0);
+                            //pre的score代表的相似度。一般不考虑小于1的结果，name为名字
+                            if (pre.score>=1){
+                                showToast("手势为"+pre.name);
+                                if (pre.name.equals("haha")){
+                                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                }
                             }
-
                         }
                     }
                 }
 
+            }else {
+                showToast("手势匹配失败，没有sd卡");
             }
         } catch (Exception exception) {
             exception.printStackTrace();
-            Toast.makeText(BaseActivity.this, "由于出现异常，所以手势匹配异常", Toast.LENGTH_SHORT).show();
+            showToast("由于出现异常，所以手势匹配异常");
         }
     }
 }

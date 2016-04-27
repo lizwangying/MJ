@@ -26,13 +26,14 @@ public class MySurfaceView extends SurfaceView implements Runnable,SurfaceHolder
     public static Vector<Bitmap> vector_bitmap;
     public static Vector<String> vector_string;
     private int col;
+    private boolean isThreadStarted;
     public MySurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
         paint = new Paint();
         paint.setAntiAlias(true);//抗锯齿
         surfaceHolder = this.getHolder();
         surfaceHolder.addCallback(this);
-        thread = new Thread(this);
+//        thread = new Thread(this);
         this.setKeepScreenOn(true);//保持屏幕常亮
         setFocusable(true);
         vector_bitmap = new Vector<>();
@@ -41,7 +42,7 @@ public class MySurfaceView extends SurfaceView implements Runnable,SurfaceHolder
 
     @Override
     public void run() {
-        while (true) {
+        while (isThreadStarted) {
             draw();
             try {
                 Thread.sleep(100);
@@ -53,6 +54,8 @@ public class MySurfaceView extends SurfaceView implements Runnable,SurfaceHolder
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         col = this.getWidth()/100;
+        isThreadStarted = true;
+        thread = new Thread(this,"gesture_thread_one");
         thread.start();
     }
 
@@ -76,8 +79,10 @@ public class MySurfaceView extends SurfaceView implements Runnable,SurfaceHolder
         }catch (Exception exception){
             exception.printStackTrace();
         }finally {
-            surfaceHolder.unlockCanvasAndPost(canvas);
-
+//            surfaceHolder.unlockCanvasAndPost(canvas);
+            if (canvas != null && surfaceHolder != null) {
+                surfaceHolder.unlockCanvasAndPost(canvas);
+            }
         }
     }
     @Override
@@ -87,7 +92,7 @@ public class MySurfaceView extends SurfaceView implements Runnable,SurfaceHolder
 
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-
+        isThreadStarted =false;
     }
 
     @Override
