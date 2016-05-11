@@ -2,15 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:orientation="horizontal">
-
-    <LinearLayout
-        style="@style/LinearLayoutVertical"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingLeft="@dimen/width_20"
-        android:paddingRight="@dimen/width_20"
+        >
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/image_topic_pic"
+            android:layout_width="@dimen/height_120"
+            android:layout_height="match_parent"
+            fresco:fadeDuration="300"
+            android:scaleType="center"
+            />
+    <LinearLayout
+        android:layout_centerInParent="true"
+        style="@style/LinearLayoutVertical"
         android:gravity="center"
+        android:layout_height="match_parent"
+        android:layout_width="@dimen/height_120"
+        android:background="@drawable/bg_black_transparent"
         >
 
         <TextView
@@ -26,10 +38,18 @@
             android:textSize="@dimen/textSize_23"
             tools:text="4月"/>
     </LinearLayout>
-
+    </RelativeLayout>
     <View
         style="@style/DividerLineVertical"/>
+<!--<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:background="@mipmap/mj_banner"/>-->
     <LinearLayout
         style="@style/LinearLayoutVertical"
         android:layout_width="match_parent"
@@ -73,6 +93,8 @@
                 android:drawablePadding="@dimen/width_10"
                 android:paddingLeft="@dimen/width_40"/>
         </LinearLayout>
+
     </LinearLayout>
+<!--</RelativeLayout>-->
 
 </LinearLayout>

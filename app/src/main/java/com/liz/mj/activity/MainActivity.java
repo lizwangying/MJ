@@ -10,7 +10,7 @@ import com.liz.mj.BaseActivity;
 import com.liz.mj.R;
 import com.liz.mj.adapter.FindTabAdapter;
 import com.liz.mj.fragment.FragmentAlbums;
-import com.liz.mj.fragment.FragmentArtists;
+import com.liz.mj.fragment.FragmentDiscover;
 import com.liz.mj.fragment.FragmentSongs;
 import com.liz.mj.fragment.dummy.DummyContent;
 
@@ -20,7 +20,7 @@ import java.util.List;
 import butterknife.Bind;
 
 public class MainActivity extends BaseActivity implements FragmentSongs.OnListFragmentInteractionListener,
-        FragmentAlbums.OnFragmentInteractionListener,FragmentArtists.OnFragmentInteractionListener{
+        FragmentAlbums.OnFragmentInteractionListener,FragmentDiscover.OnFragmentInteractionListener{
 
 //    @Bind(R.id.alertdialog)
 //    Button alertDialog;
@@ -33,7 +33,7 @@ public class MainActivity extends BaseActivity implements FragmentSongs.OnListFr
     private List<String> listTitle;
     private FragmentSongs fragmentSongs;
     private FragmentAlbums fragmentAlbums;
-    private FragmentArtists fragmentArtists;
+    private FragmentDiscover fragmentDiscover;
     private FindTabAdapter findTabAdapter;
 
     @Override
@@ -45,13 +45,13 @@ public class MainActivity extends BaseActivity implements FragmentSongs.OnListFr
     @Override
     public void initView() {
         fragmentSongs = new FragmentSongs();
-        fragmentArtists = new FragmentArtists();
+        fragmentDiscover = new FragmentDiscover();
         fragmentAlbums = new FragmentAlbums();
 
         listFragment = new ArrayList<>();
         listFragment.add(fragmentSongs);
         listFragment.add(fragmentAlbums);
-        listFragment.add(fragmentArtists);
+        listFragment.add(fragmentDiscover);
 
         listTitle = new ArrayList<>();
         listTitle.add("主页");

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="horizontal"
+              android:paddingTop="@dimen/height_10"
+              android:paddingBottom="@dimen/height_10">
+
+    <RelativeLayout
+        android:layout_width="@dimen/height_100"
+        android:layout_height="@dimen/height_100">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/image_album_cover"
+            android:layout_width="@dimen/height_100"
+            android:layout_height="@dimen/height_100"
+            android:scaleType="centerCrop"
+            fresco:fadeDuration="300"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        style="@style/LinearLayoutVertical"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/height_15"
+        android:layout_marginRight="@dimen/height_15">
+
+        <TextView
+            android:id="@+id/text_song_name"
+            style="@style/TextViewParentGrey"
+            tools:text="gggg"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/text_song_album"
+            style="@style/TextViewMoreStyle"
+            tools:text="gggg"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textStyle="bold"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

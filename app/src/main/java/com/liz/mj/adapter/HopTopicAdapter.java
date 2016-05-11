@@ -1,12 +1,14 @@
 package com.liz.mj.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.liz.mj.R;
 import com.liz.mj.bean.HotTopic;
 
@@ -47,7 +49,7 @@ public class HopTopicAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
-        ViewHolder holder = null;
+        ViewHolder holder ;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.listview_topic, null);
             holder = new ViewHolder(convertView);
@@ -63,6 +65,11 @@ public class HopTopicAdapter extends BaseAdapter {
         holder.textViewTopic.setText(topic.getTopic());
         holder.textViewSeen.setText(topic.getSeen() + "");
         holder.textViewLike.setText(topic.getLike() + "");
+
+        String imageUri = hotTopicsList.get(position).getTopicPic().getFileUrl(context);
+        Uri uri = Uri.parse(imageUri);
+
+        holder.draweeView.setImageURI(uri);
         return convertView;
     }
 
@@ -83,5 +90,7 @@ public class HopTopicAdapter extends BaseAdapter {
         TextView textViewSeen;
         @Bind(R.id.text_like)
         TextView textViewLike;
+        @Bind(R.id.image_topic_pic)
+        SimpleDraweeView draweeView;
     }
 }

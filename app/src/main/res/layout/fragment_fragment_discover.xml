@@ -1,0 +1,49 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".fragment.FragmentDiscover"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        style="@style/LinearLayoutVertical">
+        <LinearLayout
+            android:paddingTop="@dimen/height_20"
+            android:paddingBottom="@dimen/height_20"
+            style="@style/LinearLayoutHorizontalPadding">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_user"
+                />
+            <LinearLayout
+                android:layout_marginLeft="@dimen/height_20"
+                style="@style/LinearLayoutVertical">
+                <TextView
+                    style="@style/TextViewParentGrey"
+                    tools:text="haha_username"
+                    />
+                <TextView
+                    style="@style/TextViewMoreStyle"
+                    tools:text="rank"/>
+            </LinearLayout>
+
+        </LinearLayout>
+        <View
+            style="@style/DividerLineView"/>
+        <GridView
+            android:id="@+id/grid_view_discover"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="3"
+            tools:listitem="@layout/grid_view_hot_albums"
+            android:columnWidth="@dimen/height_170"
+            android:layout_marginTop="@dimen/height_10"
+            android:horizontalSpacing="@dimen/height_10"
+            android:verticalSpacing="@dimen/height_10"
+            />
+
+    </LinearLayout>
+
+</ScrollView>

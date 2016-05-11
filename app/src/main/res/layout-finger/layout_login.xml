@@ -7,6 +7,7 @@
 
     >
     <ImageView
+        android:id="@+id/bg_login"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@mipmap/main_bg"
@@ -16,7 +17,14 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical">
-
+        <TextView
+            android:id="@+id/gaosi"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_50"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textSize_18"
+            android:text="高斯模糊"
+            android:gravity="center"/>
 
         <com.liz.mj.view.MaterialTextField
         android:layout_width="match_parent"

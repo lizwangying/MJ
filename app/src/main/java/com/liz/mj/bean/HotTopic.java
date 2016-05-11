@@ -1,6 +1,7 @@
 package com.liz.mj.bean;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobFile;
 
 /**
  * description:
@@ -12,6 +13,15 @@ public class HotTopic extends BmobObject {
     private String topic;
     private Integer seen;
     private Integer like;
+    private BmobFile topicPic;
+
+    public BmobFile getTopicPic() {
+        return topicPic;
+    }
+
+    public void setTopicPic(BmobFile topicPic) {
+        this.topicPic = topicPic;
+    }
 
     public String getTopic() {
         return topic;

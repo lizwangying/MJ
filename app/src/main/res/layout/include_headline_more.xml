@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              style="@style/LinearLayoutHorizontal"
+              >
+
+        <TextView
+            android:id="@+id/text_hot_topic"
+            style="@style/TextHead2Style"
+            android:text="热议话题"
+            android:drawableLeft="@mipmap/icon_topic"
+            />
+
+        <View
+            style="@style/ViewHorizontalWeightWidget"/>
+
+        <TextView
+            android:id="@+id/text_more"
+            style="@style/TextViewMoreStyle"/>
+</LinearLayout>

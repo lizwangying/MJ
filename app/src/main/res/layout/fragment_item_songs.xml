@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
+    android:id="@+id/scroll_view_songs"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#cccccc">
+    >
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,6 +30,7 @@
                 android:id="@+id/view_banner_viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_250"/>
+
             <LinearLayout
                 style="@style/LinearLayoutHorizontal"
                 android:gravity="center"
@@ -38,18 +41,22 @@
                     android:id="@+id/image_dots1"
                     style="@style/ImageViewDots"
                     android:background="@drawable/shape_dots_selected"/>
+
                 <ImageView
                     android:id="@+id/image_dots2"
                     style="@style/ImageViewDots"
                     android:background="@drawable/shape_dots_normal"/>
+
                 <ImageView
                     android:id="@+id/image_dots3"
                     style="@style/ImageViewDots"
                     android:background="@drawable/shape_dots_normal"/>
+
                 <ImageView
                     android:id="@+id/image_dots4"
                     style="@style/ImageViewDots"
                     android:background="@drawable/shape_dots_normal"/>
+
                 <ImageView
                     android:id="@+id/image_dots5"
                     style="@style/ImageViewDots"
@@ -60,7 +67,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/width_15"
             android:layout_marginBottom="@dimen/width_10"
             android:orientation="horizontal">
 
@@ -68,12 +74,15 @@
                 style="@style/TextViewLinearHorizontalWeight1"
                 android:text="MJ"
                 android:drawableTop="@mipmap/icon_crown"
+                android:layout_marginRight="@dimen/height_5"
                 />
 
             <TextView
+                android:id="@+id/text_fans_global"
                 style="@style/TextViewLinearHorizontalWeight1"
                 android:text="全球粉丝"
-                android:drawableTop="@mipmap/icon_universe"/>
+                android:drawableTop="@mipmap/icon_universe"
+                android:layout_marginRight="@dimen/height_5"/>
 
             <TextView
                 style="@style/TextViewLinearHorizontalWeight1"
@@ -81,53 +90,36 @@
                 android:drawableTop="@mipmap/icon_love"/>
         </LinearLayout>
 
-        <View
-            style="@style/DividerLineView"/>
 
         <LinearLayout
-            style="@style/LinearLayoutHorizontalPadding"
-            android:layout_marginTop="@dimen/width_20"
+            style="@style/LinearLayoutVertical"
+            android:background="@drawable/bg_white_transparent"
+            android:paddingTop="@dimen/height_10"
             >
-
-            <TextView
-                style="@style/TextHead2Style"
-                android:text="热议话题"
-                android:drawableLeft="@mipmap/icon_topic"
-                />
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/height_10"
+                android:layout_marginLeft="@dimen/height_10">
+                <include
+                    layout="@layout/include_headline_more"
+                    />
+            </LinearLayout>
             <View
-                style="@style/ViewHorizontalWeightWidget"/>
+                style="@style/DividerLineView"
+                android:layout_marginTop="@dimen/width_10"/>
 
-            <TextView
-                style="@style/TextViewMoreStyle"/>
+            <ListView
+                android:id="@+id/list_view_topic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/listview_topic"
+                android:divider="@color/light_grey"
+                android:dividerHeight="@dimen/height_0.5"
+                />
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/list_view_topic"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/listview_topic"
-            android:layout_marginTop="@dimen/width_10"
-            android:divider="@color/light_grey"
-            android:dividerHeight="@dimen/height_0.5"
-            />
-        <LinearLayout
-            style="@style/LinearLayoutHorizontalPadding"
-            android:layout_marginTop="@dimen/width_20"
-            >
 
-            <TextView
-                style="@style/TextHead2Style"
-                android:text="最近新闻"
-                android:drawableLeft="@mipmap/icon_fire"
-                />
-
-            <View
-                style="@style/ViewHorizontalWeightWidget"/>
-
-            <TextView
-                style="@style/TextViewMoreStyle"/>
-        </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/list"

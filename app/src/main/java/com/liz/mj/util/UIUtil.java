@@ -3,6 +3,7 @@ package com.liz.mj.util;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
@@ -165,5 +166,15 @@ public class UIUtil {
         listView.requestLayout();
     }
 
+    /**
+     * description: 传说中的高斯模糊，就是毛玻璃啦 ，使用RenderScript实现
+     * author: https://github.com/lizwangying
+     * @param bitmap 传入的bitmap
+     * @param view view
+     * date:  2016/4/30 19:27
+     * version:
+     */
+    public void blur(Bitmap bitmap , View view){
 
+    }
 }
