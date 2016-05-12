@@ -13,9 +13,9 @@
             android:paddingBottom="@dimen/height_20"
             style="@style/LinearLayoutHorizontalPadding">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/icon_user"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/shape_rectangle"
                 />
             <LinearLayout
                 android:layout_marginLeft="@dimen/height_20"
@@ -32,16 +32,12 @@
         </LinearLayout>
         <View
             style="@style/DividerLineView"/>
-        <GridView
-            android:id="@+id/grid_view_discover"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_discover"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:numColumns="3"
+            android:layout_height="220dp"
             tools:listitem="@layout/grid_view_hot_albums"
-            android:columnWidth="@dimen/height_170"
-            android:layout_marginTop="@dimen/height_10"
-            android:horizontalSpacing="@dimen/height_10"
-            android:verticalSpacing="@dimen/height_10"
+            android:layout_marginBottom="@dimen/height_10"
             />
 
     </LinearLayout>

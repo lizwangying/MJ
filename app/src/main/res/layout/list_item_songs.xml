@@ -5,20 +5,26 @@
               xmlns:fresco="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:orientation="horizontal"
-              android:paddingTop="@dimen/height_10"
-              android:paddingBottom="@dimen/height_10">
+    android:background="@color/maybe">
 
     <RelativeLayout
-        android:layout_width="@dimen/height_100"
-        android:layout_height="@dimen/height_100">
+        android:layout_width="@dimen/height_80"
+        android:layout_height="@dimen/height_80"
+        android:background="@color/maybe">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/image_album_cover"
-            android:layout_width="@dimen/height_100"
-            android:layout_height="@dimen/height_100"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop"
             fresco:fadeDuration="300"
             />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@mipmap/icon_play_image"
+            android:scaleType="centerCrop"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -46,5 +52,15 @@
             />
 
     </LinearLayout>
+    <View
+        style="@style/ViewHorizontalWeightWidget"/>
+    <ImageView
+        android:id="@+id/image_play"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:src="@mipmap/icon_dots"
+        android:padding="@dimen/height_10"
+        android:layout_marginRight="@dimen/height_10"/>
 
 </LinearLayout>

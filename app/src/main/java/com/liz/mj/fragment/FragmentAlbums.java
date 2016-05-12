@@ -115,11 +115,17 @@ public class FragmentAlbums extends Fragment {
     }
 
     private void initView() {
-        textViewAlbumList.setText("专辑");
         textHeadlineSongs = (TextView) viewHeadlineSongs.findViewById(R.id.text_hot_topic);
-        textHeadlineSongs.setText("歌曲");
         textHotMV = (TextView) viewHotMV.findViewById(R.id.text_hot_topic);
+        textViewAlbumList.setText("专辑");
+        textHeadlineSongs.setText("歌曲");
         textHotMV.setText("MV");
+        textHeadlineSongs.setCompoundDrawables(getResources().getDrawable(R.mipmap.icon_music)
+                ,null,null,null);
+        textHeadlineSongs.setCompoundDrawables(getResources().getDrawable(R.mipmap.icon_album)
+                ,null,null,null);
+        textHotMV.setCompoundDrawables(getResources().getDrawable(R.mipmap.icon_video)
+                ,null,null,null);
 
         recyclerViewAlbums.setLayoutManager(new StaggeredGridLayoutManager(1,
                 StaggeredGridLayoutManager.HORIZONTAL));

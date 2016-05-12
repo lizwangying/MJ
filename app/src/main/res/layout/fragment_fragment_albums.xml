@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/height_10"
+        android:paddingTop="@dimen/height_10"
         >
         <include
             layout="@layout/include_headline_more"/>
@@ -19,28 +19,32 @@
             android:layout_width="match_parent"
             android:layout_height="270dp"
             tools:listitem="@layout/grid_view_hot_albums"
-            android:layout_marginTop="@dimen/height_10"
+            android:layout_marginTop="@dimen/height_5"
+            android:layout_marginBottom="@dimen/height_10"
             />
         <include
             android:id="@+id/view_songs_headline"
-            android:layout_marginTop="@dimen/height_10"
             layout="@layout/include_headline_more"/>
-
+        <View
+            android:layout_marginTop="@dimen/height_5"
+            style="@style/DividerLineView"/>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_songs"
             android:layout_width="match_parent"
             android:layout_height="220dp"
             tools:listitem="@layout/list_item_songs"
-            android:layout_marginTop="@dimen/height_10"
+            android:layout_marginBottom="@dimen/height_10"
             />
         <include
             android:id="@+id/view_hot_mv"
             layout="@layout/include_headline_more"/>
-        <ListView
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_mv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="220dp"
             tools:listitem="@layout/grid_view_hot_albums"
             android:layout_marginTop="@dimen/height_10"
+            android:layout_marginBottom="@dimen/height_10"
             />
 
     </LinearLayout>

@@ -62,6 +62,9 @@ public class FragmentSongs extends Fragment {
     TextView text_topic;
 
 
+    @Bind(R.id.text_crown)
+    TextView textCrown;
+
 
 
 //    @Bind(R.id.image)

@@ -60,4 +60,5 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     //    compile 'com.github.halzhang:mvp-support-v7:1.0.0'
     //    compile 'com.android.support:cardview-v7:22.0.0-alpha1'
+    compile project(':playerview')
 }
