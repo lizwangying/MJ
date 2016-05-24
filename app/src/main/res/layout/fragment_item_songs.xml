@@ -86,6 +86,7 @@
                 android:layout_marginRight="@dimen/height_5"/>
 
             <TextView
+                android:id="@+id/text_warm_story"
                 style="@style/TextViewLinearHorizontalWeight1"
                 android:text="爱的故事"
                 android:drawableTop="@mipmap/icon_love"/>
@@ -106,13 +107,12 @@
                 style="@style/DividerLineView"
                 android:layout_marginTop="@dimen/height_5"/>
 
-            <ListView
+
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/list_view_topic"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/height_500"
                 tools:listitem="@layout/listview_topic"
-                android:divider="@color/light_grey"
-                android:dividerHeight="@dimen/height_0.5"
                 />
         </LinearLayout>
 

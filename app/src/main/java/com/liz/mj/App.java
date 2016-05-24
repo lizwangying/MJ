@@ -7,11 +7,11 @@ import android.text.TextUtils;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.Volley;
-import com.liz.mj.network.OkHttpStack;
-import com.liz.mj.util.ImagePipelineConfigFactory;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.liz.mj.util.ImagePipelineConfigFactory;
 import com.squareup.okhttp.OkHttpClient;
+
+//import com.liz.mj.network.OkHttpStack;
 
 public class App extends Application {
 	private static App instance;
@@ -62,7 +62,7 @@ public class App extends Application {
 		synchronized (App.class) {
 			if (mRequestQueue == null) {
 //				client.networkInterceptors().add(new StethoInterceptor());
-				mRequestQueue = Volley.newRequestQueue(getApplicationContext(), new OkHttpStack(getOkHttpClient()));//使用okHttp
+//				mRequestQueue = Volley.newRequestQueue(getApplicationContext(), new OkHttpStack(getOkHttpClient()));//使用okHttp
 //				mRequestQueue = Volley.newRequestQueue(getApplicationContext()); //使用volley默认
 			}
 		}

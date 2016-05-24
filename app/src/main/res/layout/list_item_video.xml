@@ -14,7 +14,7 @@
         >
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/image_album_cover"
+            android:id="@+id/image_video_cover"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_170"
             android:scaleType="centerCrop"
@@ -23,14 +23,14 @@
 
 
         <TextView
-            android:id="@+id/text_album_play_num"
+            android:id="@+id/text_video_name"
             style="@style/TextViewBgBlackTransparent"
             android:layout_width="match_parent"
             tools:text="这个专辑"
             android:paddingLeft="@dimen/height_10"
-            android:drawableLeft="@mipmap/icon_topic"
+            android:drawableLeft="@mipmap/icon_play_small"
             android:drawablePadding="@dimen/height_5"
-            android:layout_alignBottom="@id/image_album_cover"
+            android:layout_alignBottom="@id/image_video_cover"
             android:paddingTop="@dimen/height_10"
             android:paddingBottom="@dimen/height_10"
             />

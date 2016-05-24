@@ -1,5 +1,7 @@
 package com.liz.mj.bean;
 
+import java.io.Serializable;
+
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.datatype.BmobFile;
 
@@ -9,7 +11,7 @@ import cn.bmob.v3.datatype.BmobFile;
  * date: 2016-05-11 13:05
  * version:
  */
-public class MJSongs extends BmobObject {
+public class MJSongs extends BmobObject implements Serializable{
     private String songName;
     private String albumId;
     private BmobFile songFile;

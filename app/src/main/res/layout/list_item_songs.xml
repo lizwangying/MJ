@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@mipmap/icon_play_image"
+            android:background="@mipmap/icon_song_play"
             android:scaleType="centerCrop"/>
     </RelativeLayout>
 

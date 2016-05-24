@@ -2,7 +2,7 @@ package com.liz.mj.fragment;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
@@ -13,7 +13,6 @@ import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,24 +20,25 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.liz.mj.R;
+import com.liz.mj.activity.FansGlobalActivity;
+import com.liz.mj.activity.HotTopicDetail;
+import com.liz.mj.activity.MJPersonalInfo;
+import com.liz.mj.activity.WarmStoryActivity;
 import com.liz.mj.adapter.BannerImagePagerAdapter;
-import com.liz.mj.adapter.HopTopicAdapter;
+import com.liz.mj.adapter.RecyclerHopTopicAdapter;
 import com.liz.mj.bean.BannerPicture;
 import com.liz.mj.bean.HotTopic;
-import com.liz.mj.fragment.dummy.DummyContent;
-import com.liz.mj.fragment.dummy.DummyContent.DummyItem;
-import com.liz.mj.util.UIUtil;
 
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobQueryResult;
 import cn.bmob.v3.exception.BmobException;
@@ -47,25 +47,30 @@ import cn.bmob.v3.listener.SQLQueryListener;
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * Activities containing
  * interface.
  */
 public class FragmentSongs extends Fragment {
     @Bind(R.id.list_view_topic)
-    ListView listviewHotTopic;
+    RecyclerView recyclerViewHotTopic;
     @Bind(R.id.view_banner_viewpager)
     ViewPager bannerViewPager;
 
-    @Bind(R.id.text_fans_global)
-    TextView textFansGlobal;
+
     @Bind(R.id.text_hot_topic)
     TextView text_topic;
 
 
     @Bind(R.id.text_crown)
     TextView textCrown;
+    @Bind(R.id.text_fans_global)
+    TextView textFansGlobal;
+    @Bind(R.id.text_warm_story)
+    TextView textWarmStory;
+    @Bind(R.id.text_more)
+    TextView textMore;
 
-
+    private RecyclerHopTopicAdapter adapterHotTopic;
 
 //    @Bind(R.id.image)
 //    SimpleDraweeView img;
@@ -77,7 +82,7 @@ public class FragmentSongs extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -112,7 +117,7 @@ public class FragmentSongs extends Fragment {
         View view = inflater.inflate(R.layout.fragment_item_songs, container, false);
         ButterKnife.bind(this, view);
         //listview不可滑动
-        listviewHotTopic.setOnTouchListener(new View.OnTouchListener() {
+        recyclerViewHotTopic.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch (motionEvent.getAction()) {
@@ -125,24 +130,13 @@ public class FragmentSongs extends Fragment {
             }
         });
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
-        }
-
+        recyclerViewHotTopic.setLayoutManager(new LinearLayoutManager(getActivity()));
         initData();
         initImage();
-
 //        applyBlur();
         return view;
     }
+
 
 //    private void applyBlur(){
 //        //调用applyBlur的时候界面还没有开始布局，所以需要加监听事件是否可以开始进行模糊处理。
@@ -247,11 +241,24 @@ public class FragmentSongs extends Fragment {
             @Override
             public void done(BmobQueryResult<HotTopic> bmobQueryResult, BmobException e) {
                 if (e == null) {
-                    List<HotTopic> list = bmobQueryResult.getResults();
+                    final List<HotTopic> list = bmobQueryResult.getResults();
                     if (list != null && list.size() > 0) {
-                        listviewHotTopic.setAdapter(new HopTopicAdapter(list, getActivity()));
+                        adapterHotTopic = new RecyclerHopTopicAdapter(list, getActivity());
+                        recyclerViewHotTopic.setAdapter(adapterHotTopic);
+                        adapterHotTopic.setOnItemtClickListener(new RecyclerHopTopicAdapter.OnItemtClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                Intent intent = new Intent(getActivity(),HotTopicDetail.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("Comments", list.get(position));
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            }
+                            @Override
+                            public void onItemLongClick(View view, int position) {}
+                        });
                         //动态设置listview的长度
-                        UIUtil.setListViewHeightBasedOnChildren(listviewHotTopic);
+//                        UIUtil.setListViewHeightBasedOnChildren(recyclerViewHotTopic);
                     } else {
                         Toast.makeText(getActivity(), "无热门话题", Toast.LENGTH_SHORT).show();
                     }
@@ -264,6 +271,25 @@ public class FragmentSongs extends Fragment {
 
     }
 
+    @OnClick({R.id.text_crown,R.id.text_more,R.id.text_fans_global,R.id.text_warm_story})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.text_crown:
+                startActivity(new Intent(getActivity(), MJPersonalInfo.class));
+                break;
+            case R.id.text_fans_global:
+                startActivity(new Intent(getActivity(), FansGlobalActivity.class));
+                break;
+            case R.id.text_warm_story:
+                startActivity(new Intent(getActivity(), WarmStoryActivity.class));
+                break;
+            case R.id.text_more:
+                startActivity(new Intent(getActivity(), HotTopicDetail.class));
+                break;
+        }
+    }
+
+
     @Override
     public void onStart() {
         super.onStart();
@@ -272,33 +298,9 @@ public class FragmentSongs extends Fragment {
     @Override
     public void onAttach(Activity context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
     }
-
-
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
     }
 }

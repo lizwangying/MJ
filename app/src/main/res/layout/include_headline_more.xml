@@ -9,7 +9,7 @@
             android:id="@+id/text_hot_topic"
             style="@style/TextHead2Style"
             android:text="热议话题"
-            android:drawableLeft="@mipmap/icon_music"
+
             />
 
         <View

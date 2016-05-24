@@ -9,13 +9,12 @@
         android:layout_width="match_parent"
         style="@style/LinearLayoutVertical">
         <LinearLayout
-            android:paddingTop="@dimen/height_20"
-            android:paddingBottom="@dimen/height_20"
-            style="@style/LinearLayoutHorizontalPadding">
+            style="@style/LinearLayoutVertical"
+            android:layout_width="match_parent">
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/shape_rectangle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_300"
+                android:background="@drawable/bg_black_transparent"
                 />
             <LinearLayout
                 android:layout_marginLeft="@dimen/height_20"
@@ -30,8 +29,6 @@
             </LinearLayout>
 
         </LinearLayout>
-        <View
-            style="@style/DividerLineView"/>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_discover"
             android:layout_width="match_parent"

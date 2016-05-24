@@ -1,5 +1,7 @@
 package com.liz.mj.bean;
 
+import java.io.Serializable;
+
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.datatype.BmobFile;
 
@@ -9,7 +11,7 @@ import cn.bmob.v3.datatype.BmobFile;
  * date: 2016-04-25 17:31
  * version:
  */
-public class HotTopic extends BmobObject {
+public class HotTopic extends BmobObject implements Serializable{
     private String topic;
     private Integer seen;
     private Integer like;

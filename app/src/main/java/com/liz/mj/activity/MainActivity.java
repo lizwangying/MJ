@@ -12,14 +12,13 @@ import com.liz.mj.adapter.FindTabAdapter;
 import com.liz.mj.fragment.FragmentAlbums;
 import com.liz.mj.fragment.FragmentDiscover;
 import com.liz.mj.fragment.FragmentSongs;
-import com.liz.mj.fragment.dummy.DummyContent;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 
-public class MainActivity extends BaseActivity implements FragmentSongs.OnListFragmentInteractionListener,
+public class MainActivity extends BaseActivity implements
         FragmentAlbums.OnFragmentInteractionListener,FragmentDiscover.OnFragmentInteractionListener{
 
 //    @Bind(R.id.alertdialog)
@@ -97,10 +96,7 @@ public class MainActivity extends BaseActivity implements FragmentSongs.OnListFr
 
     }
 
-    @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
 
-    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {

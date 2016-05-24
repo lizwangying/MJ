@@ -1,7 +1,9 @@
 package com.liz.mj.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +11,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.liz.mj.R;
-import com.liz.mj.bean.MJSongs;
+import com.liz.mj.bean.MJVideos;
 
 import java.util.List;
 
@@ -21,29 +23,34 @@ import butterknife.ButterKnife;
  * author: lizwangying@icloud.com
  * date: 2016-05-11 16:15
  */
-public class RecyclerSongsAdapter extends RecyclerView.Adapter<RecyclerSongsAdapter.MyViewHolder> {
+public class RecyclerVideosAdapter extends RecyclerView.Adapter<RecyclerVideosAdapter.MyViewHolder> {
     private Context context;
-    private List<MJSongs> songsList;
+    private List<MJVideos> videoList;
 
-    public RecyclerSongsAdapter(Context context, List<MJSongs> songsList) {
+    public RecyclerVideosAdapter(Context context, List<MJVideos> videoList) {
         this.context = context;
-        this.songsList = songsList;
+        this.videoList = videoList;
+        Log.e("haha","constru-----"+videoList.size()+"2222"+videoList.get(0).getVideoName());
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         MyViewHolder myViewHolder = new MyViewHolder(
-                LayoutInflater.from(context).inflate(R.layout.list_item_songs, parent, false));
+                LayoutInflater.from(context).inflate(R.layout.list_item_video,parent,false));
+        Log.e("haha","create adapter");
         return myViewHolder;
     }
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        holder.textSongName.setText(songsList.get(position).getSongName());
-        holder.textSongAlbum.setText(songsList.get(position).getAlbumNameString());
-//        holder.coverImage.
+        Log.e("haha","bind--------"+videoList.get(0).getVideoName());
+        holder.textVideoName.setText("dfffff");
+//        holder.textVideoName.setText(videoList.get(position).getVideoName());
+        String imageUri = videoList.get(position).getVideoCover().getFileUrl(context);
+        Uri uri = Uri.parse(imageUri);
+        holder.coverImage.setImageURI(uri);
         //如果设置了点击回调，则设置点击事件
-        if (myOnItemClickListener != null) {
+        if (myOnItemClickListener != null){
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -51,22 +58,21 @@ public class RecyclerSongsAdapter extends RecyclerView.Adapter<RecyclerSongsAdap
                     myOnItemClickListener.onItemClick(holder.itemView, pos);
                 }
             });
-
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    int pos = holder.getLayoutPosition();
-                    myOnItemClickListener.onItemLongClick(holder.itemView, pos);
-                    return false;
-                }
-            });
         }
 
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                int pos = holder.getLayoutPosition();
+                myOnItemClickListener.onItemLongClick(holder.itemView, pos);
+                return false;
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return songsList.size();
+        return videoList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -74,25 +80,21 @@ public class RecyclerSongsAdapter extends RecyclerView.Adapter<RecyclerSongsAdap
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
-
-        @Bind(R.id.text_song_name)
-        TextView textSongName;
-        @Bind(R.id.text_song_album)
-        TextView textSongAlbum;
-        @Bind(R.id.image_album_cover)
+        @Bind(R.id.text_video_name)
+        TextView textVideoName;
+        @Bind(R.id.image_video_cover)
         SimpleDraweeView coverImage;
 
     }
 
-    public interface OnItemClickListener {
+    public interface OnItemClickListener{
         void onItemClick(View view, int position);
-
         void onItemLongClick(View view, int position);
     }
 
     private OnItemClickListener myOnItemClickListener;
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         this.myOnItemClickListener = onItemClickListener;
     }
 

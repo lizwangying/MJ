@@ -10,6 +10,6 @@
     <color name="black">#000000</color>
     <color name="light_grey">#cccccc</color>
     <color name="pink_water_melon">#fb6362</color>
-
+    <color name="grey_bg">#eeeff0</color>
     <color name="maybe">#7f000000</color>
 </resources>

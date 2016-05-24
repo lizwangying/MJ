@@ -29,7 +29,9 @@
             android:layout_width="match_parent"
             tools:text="这个专辑"
             android:paddingLeft="@dimen/height_10"
-            android:drawableLeft="@mipmap/icon_topic"
+            android:drawableLeft="@mipmap/icon_play_small"
+            android:paddingTop="@dimen/height_3"
+            android:paddingBottom="@dimen/height_3"
             android:drawablePadding="@dimen/height_5"
             android:layout_alignBottom="@id/image_album_cover"
             />

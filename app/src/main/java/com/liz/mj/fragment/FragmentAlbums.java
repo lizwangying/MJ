@@ -1,6 +1,7 @@
 package com.liz.mj.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,10 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.liz.mj.R;
+import com.liz.mj.activity.MusicPlayActivity;
 import com.liz.mj.adapter.RecyclerAlbumAdapter;
 import com.liz.mj.adapter.RecyclerSongsAdapter;
+import com.liz.mj.adapter.RecyclerVideosAdapter;
 import com.liz.mj.bean.MJAlbums;
 import com.liz.mj.bean.MJSongs;
+import com.liz.mj.bean.MJVideos;
 
 import java.util.List;
 
@@ -50,7 +54,7 @@ public class FragmentAlbums extends Fragment {
     @Bind(R.id.view_hot_mv)
     View viewHotMV;
     private TextView textHotMV;
-    
+
     @Bind(R.id.recycler_view_albums)
     RecyclerView recyclerViewAlbums;
 
@@ -58,6 +62,12 @@ public class FragmentAlbums extends Fragment {
 
     @Bind(R.id.recycler_view_songs)
     RecyclerView recyclerViewSongs;
+    @Bind(R.id.recycler_view_mv)
+    RecyclerView recyclerViewsVideos;
+    private RecyclerSongsAdapter songsAdapter;
+    private RecyclerAlbumAdapter albumAdapter;
+    private RecyclerVideosAdapter videosAdapter;
+    private List<MJVideos> videosList;
 
     private List<MJSongs> songsLists;
 
@@ -107,10 +117,11 @@ public class FragmentAlbums extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_fragment_albums,container,false);
+        View view = inflater.inflate(R.layout.fragment_fragment_albums, container, false);
         ButterKnife.bind(this, view);
         initView();
         initData();
+
         return view;
     }
 
@@ -121,15 +132,16 @@ public class FragmentAlbums extends Fragment {
         textHeadlineSongs.setText("歌曲");
         textHotMV.setText("MV");
         textHeadlineSongs.setCompoundDrawables(getResources().getDrawable(R.mipmap.icon_music)
-                ,null,null,null);
-        textHeadlineSongs.setCompoundDrawables(getResources().getDrawable(R.mipmap.icon_album)
-                ,null,null,null);
+                , null, null, null);
+        textViewAlbumList.setCompoundDrawables(getResources().getDrawable(R.mipmap.icon_album)
+                , null, null, null);
         textHotMV.setCompoundDrawables(getResources().getDrawable(R.mipmap.icon_video)
-                ,null,null,null);
+                , null, null, null);
 
         recyclerViewAlbums.setLayoutManager(new StaggeredGridLayoutManager(1,
                 StaggeredGridLayoutManager.HORIZONTAL));
         recyclerViewSongs.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerViewsVideos.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }
 
@@ -142,17 +154,18 @@ public class FragmentAlbums extends Fragment {
         new BmobQuery<MJAlbums>().doSQLQuery(getActivity(), sql, new SQLQueryListener<MJAlbums>() {
             @Override
             public void done(BmobQueryResult<MJAlbums> bmobQueryResult, BmobException e) {
-                if (e == null){
+                if (e == null) {
                     albumsList = bmobQueryResult.getResults();
-                    if (albumsList != null && albumsList.size() > 0){
+                    if (albumsList != null && albumsList.size() > 0) {
 //                        albumGridView.setAdapter(new AlbumGridViewAdapter(albumsList,getActivity()));
-                        recyclerViewAlbums.setAdapter(new RecyclerAlbumAdapter(albumsList,getActivity()));
-                        Toast.makeText(getActivity(),"怎么回事？淡定，让我想想~~~",Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(getActivity(),"怎么回事？没有数据？淡定，让我想想~~~",Toast.LENGTH_SHORT).show();
+                        albumAdapter = new RecyclerAlbumAdapter(albumsList, getActivity());
+
+                        recyclerViewAlbums.setAdapter(albumAdapter);
+                    } else {
+                        Toast.makeText(getActivity(), "怎么回事？没有数据？淡定，让我想想~~~", Toast.LENGTH_SHORT).show();
                     }
 
-                }else {
+                } else {
                     Toast.makeText(getActivity(), "查询失败", Toast.LENGTH_SHORT).show();
                     Log.i("haha", "错误码：" + e.getErrorCode() + "，错误描述：" + e.getMessage());
                 }
@@ -163,20 +176,77 @@ public class FragmentAlbums extends Fragment {
         new BmobQuery<MJSongs>().doSQLQuery(getActivity(), bql, new SQLQueryListener<MJSongs>() {
             @Override
             public void done(BmobQueryResult<MJSongs> bmobQueryResult, BmobException e) {
-                if (e == null){
+                if (e == null) {
                     songsLists = bmobQueryResult.getResults();
-                    if (songsLists != null && songsLists.size() > 0){
-                        recyclerViewSongs.setAdapter(new RecyclerSongsAdapter(getActivity(),songsLists));
-                        Toast.makeText(getActivity(),"怎么回事？淡定，让我想想~~~",Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(getActivity(),"怎么回事？没有数据？淡定，让我想想~~~",Toast.LENGTH_SHORT).show();
+                    if (songsLists != null && songsLists.size() > 0) {
+                        songsAdapter = new RecyclerSongsAdapter(getActivity(), songsLists);
+
+                        recyclerViewSongs.setAdapter(songsAdapter);
+                        songsAdapter.setOnItemClickListener(new RecyclerSongsAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                Intent intent = new Intent(getActivity(), MusicPlayActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("MJSongs", songsLists.get(position));
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            }
+
+                            @Override
+                            public void onItemLongClick(View view, int position) {
+                                Toast.makeText(getActivity(), "long click" + position, Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    } else {
+                        Toast.makeText(getActivity(), "怎么回事？没有数据？淡定，让我想想~~~", Toast.LENGTH_SHORT).show();
                     }
-                }else {
+                } else {
                     Toast.makeText(getActivity(), "查询失败", Toast.LENGTH_SHORT).show();
                     Log.i("haha", "错误码：" + e.getErrorCode() + "，错误描述：" + e.getMessage());
                 }
             }
         });
+
+        String bqlVideo = "select * from MJVideos";
+        new BmobQuery<MJVideos>().doSQLQuery(getActivity(), bqlVideo, new SQLQueryListener<MJVideos>() {
+            @Override
+            public void done(BmobQueryResult<MJVideos> bmobQueryResult, BmobException e) {
+                if (e == null) {
+                    videosList = bmobQueryResult.getResults();
+                    if (videosList != null && videosList.size() > 0) {
+                        videosAdapter = new RecyclerVideosAdapter(getActivity(), videosList);
+                        recyclerViewsVideos.setAdapter(videosAdapter);
+                        Log.e("haha","setadapter-----");
+                        videosAdapter.setOnItemClickListener(new RecyclerVideosAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+//                                Intent intent = new Intent(getActivity(), MusicPlayActivity.class);
+//                                Bundle bundle = new Bundle();
+//                                bundle.putSerializable("MJSongs", videosList.get(position));
+//                                intent.putExtras(bundle);
+//                                startActivity(intent);
+                            }
+                            @Override
+                            public void onItemLongClick(View view, int position) {
+                                Toast.makeText(getActivity(), "long click" + position, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else {
+                        Toast.makeText(getActivity(), "怎么回事？没有数据？淡定，让我想想~~~", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "查询失败", Toast.LENGTH_SHORT).show();
+                    Log.i("haha", "错误码：" + e.getErrorCode() + "，错误描述：" + e.getMessage());
+                }
+            }
+        });
+
+
+
+
+
+
 
 
 
@@ -229,9 +299,6 @@ public class FragmentAlbums extends Fragment {
 //
 //            }
 //        });
-
-
-
 
 
     }
