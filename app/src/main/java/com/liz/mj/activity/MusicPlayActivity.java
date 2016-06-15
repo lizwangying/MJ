@@ -1,7 +1,10 @@
 package com.liz.mj.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,8 +21,9 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.listener.GetListener;
 import co.mobiwise.playerview.MusicPlayerView;
+import co.mobiwise.playerview.OnPlayPauseToggleListener;
 
-public class MusicPlayActivity extends BaseActivity {
+public class MusicPlayActivity extends BaseActivity implements OnPlayPauseToggleListener {
     @Bind(R.id.image_album_cover_bg)
     SimpleDraweeView coverBg;
     @Bind(R.id.music_play_view)
@@ -36,7 +40,7 @@ public class MusicPlayActivity extends BaseActivity {
     ImageView imagePrevious;
 
     private MJSongs mjSongs;
-
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onBeforeSetContentLayout() {
@@ -46,7 +50,8 @@ public class MusicPlayActivity extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-//        musicPlayerView
+        musicPlayerView.setProgressLoadedColor(Color.RED);
+        musicPlayerView.setTimeColor(Color.WHITE);
     }
 
     @Override
@@ -61,6 +66,32 @@ public class MusicPlayActivity extends BaseActivity {
         Intent intent = this.getIntent();
         mjSongs = (MJSongs) intent.getSerializableExtra("MJSongs");
         textTitle.setText(mjSongs.getSongName());
+        String name = mjSongs.getSongName();
+        if ("Unbreakable".equals(name)){
+            mediaPlayer = MediaPlayer.create(MusicPlayActivity.this, R.raw.unbreakable);
+        }else{
+            mediaPlayer = MediaPlayer.create(MusicPlayActivity.this, R.raw.you_are_not_alone);
+        }
+        musicPlayerView.start();
+        mediaPlayer.start();
+        musicPlayerView.setProgress(mjSongs.getMusicTime());
+        Log.e("haha", "-------------------------------"+mjSongs.getMusicTime() );
+        musicPlayerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean isRotating = musicPlayerView.isRotating();
+                if (isRotating) {
+                    musicPlayerView.stop();
+                    mediaPlayer.pause();
+                } else {
+                    musicPlayerView.start();
+                    mediaPlayer.start();
+                }
+            }
+        });
+//        musicPlayerView.start();
+//        mediaPlayer = MediaPlayer.create(MusicPlayActivity.this, R.raw.unbreakable);
+//        mediaPlayer.start();
     }
 
     @Override
@@ -86,15 +117,16 @@ public class MusicPlayActivity extends BaseActivity {
         }
 
 
+
     }
 
     private void downLoadFile(BmobFile bmobfFile) {
 
     }
 
-    @OnClick({R.id.image_previous,R.id.image_next,R.id.image_share,R.id.image_back})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.image_previous, R.id.image_next, R.id.image_share, R.id.image_back})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.image_previous:
 
                 break;
@@ -103,8 +135,20 @@ public class MusicPlayActivity extends BaseActivity {
             case R.id.image_share:
                 break;
             case R.id.image_back:
+                mediaPlayer.stop();
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        mediaPlayer.stop();
+        finish();
+    }
+
+    @Override
+    public void onToggled() {
+
     }
 }

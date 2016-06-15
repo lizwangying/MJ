@@ -16,7 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.liz.mj.R;
+import com.liz.mj.activity.AlbumsListActivity;
 import com.liz.mj.activity.MusicPlayActivity;
+import com.liz.mj.activity.VideoWebViewActivity;
 import com.liz.mj.adapter.RecyclerAlbumAdapter;
 import com.liz.mj.adapter.RecyclerSongsAdapter;
 import com.liz.mj.adapter.RecyclerVideosAdapter;
@@ -44,8 +46,8 @@ import cn.bmob.v3.listener.SQLQueryListener;
 public class FragmentAlbums extends Fragment {
     @Bind(R.id.text_hot_topic)
     TextView textViewAlbumList;
-    @Bind(R.id.text_more)
-    TextView textViewMore;
+//    @Bind(R.id.text_more)
+//    TextView textViewMore;
 
     @Bind(R.id.view_songs_headline)
     View viewHeadlineSongs;
@@ -159,8 +161,23 @@ public class FragmentAlbums extends Fragment {
                     if (albumsList != null && albumsList.size() > 0) {
 //                        albumGridView.setAdapter(new AlbumGridViewAdapter(albumsList,getActivity()));
                         albumAdapter = new RecyclerAlbumAdapter(albumsList, getActivity());
-
                         recyclerViewAlbums.setAdapter(albumAdapter);
+                        albumAdapter.setOnItemClickListener(new RecyclerAlbumAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                Intent intent = new Intent(getActivity(), AlbumsListActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("MJAlbum", albumsList.get(position));
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            }
+
+                            @Override
+                            public void onItemLongClick(View view, int position) {
+
+                            }
+                        });
+//                        albumAdapter.seto
                     } else {
                         Toast.makeText(getActivity(), "怎么回事？没有数据？淡定，让我想想~~~", Toast.LENGTH_SHORT).show();
                     }
@@ -180,7 +197,6 @@ public class FragmentAlbums extends Fragment {
                     songsLists = bmobQueryResult.getResults();
                     if (songsLists != null && songsLists.size() > 0) {
                         songsAdapter = new RecyclerSongsAdapter(getActivity(), songsLists);
-
                         recyclerViewSongs.setAdapter(songsAdapter);
                         songsAdapter.setOnItemClickListener(new RecyclerSongsAdapter.OnItemClickListener() {
                             @Override
@@ -191,11 +207,9 @@ public class FragmentAlbums extends Fragment {
                                 intent.putExtras(bundle);
                                 startActivity(intent);
                             }
-
                             @Override
                             public void onItemLongClick(View view, int position) {
                                 Toast.makeText(getActivity(), "long click" + position, Toast.LENGTH_SHORT).show();
-
                             }
                         });
                     } else {
@@ -221,11 +235,11 @@ public class FragmentAlbums extends Fragment {
                         videosAdapter.setOnItemClickListener(new RecyclerVideosAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
-//                                Intent intent = new Intent(getActivity(), MusicPlayActivity.class);
-//                                Bundle bundle = new Bundle();
-//                                bundle.putSerializable("MJSongs", videosList.get(position));
-//                                intent.putExtras(bundle);
-//                                startActivity(intent);
+                                Intent intent = new Intent(getActivity(), VideoWebViewActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("MJVideos", videosList.get(position));
+                                intent.putExtras(bundle);
+                                startActivity(intent);
                             }
                             @Override
                             public void onItemLongClick(View view, int position) {
@@ -241,13 +255,6 @@ public class FragmentAlbums extends Fragment {
                 }
             }
         });
-
-
-
-
-
-
-
 
 
         //添加一对一关系

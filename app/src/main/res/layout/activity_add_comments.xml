@@ -1,45 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/grey_bg"
-    tools:context="com.liz.mj.activity.AddCommentsActivity"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
-        style="@style/LinearLayoutHorizontalPadding"
-        android:background="@color/darker_grey"
-        >
-        <ImageView
-            android:paddingTop="@dimen/height_10"
-            android:paddingBottom="@dimen/height_10"
-            android:id="@+id/image_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/icon_back_normal"/>
-    </LinearLayout>
-
-    <EditText
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_300"
-        android:background="@color/white"
-        tools:text="sdfsdfsd"
-        android:gravity="start"
-        android:padding="@dimen/height_10"
-        />
+        android:layout_height="match_parent"
+        android:background="@color/grey_bg"
+        android:orientation="vertical">
 
-    <LinearLayout
-        style="@style/LinearLayoutHorizontalPadding"
-        android:padding="@dimen/height_10"
-        >
-        <ImageView
-            android:id="@+id/icon_add_photo"
-            android:layout_width="@dimen/height_30"
-            android:layout_height="@dimen/height_30"
-            android:background="@mipmap/icon_small_pic"
-            android:padding="@dimen/height_10"/>
+        <include layout="@layout/include_back_title"/>
+        <EditText
+            android:id="@+id/edit_comment_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/height_200"
+            android:background="@color/white"
+            tools:text="sdfsdfsd"
+            android:gravity="start"
+            android:padding="@dimen/height_10"
+            />
+
+        <GridView
+            android:id="@+id/addphoto_grid"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/height_200"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:columnWidth="70dp"
+            android:horizontalSpacing="2dp"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp"/>
+
+        <Button
+            android:id="@+id/button_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_selector"
+            android:layout_marginTop="@dimen/width_40"
+            android:textColor="@drawable/text_color_selector"
+            android:text="提交"
+            android:textSize="@dimen/textSize_23"
+            android:layout_gravity="bottom"
+            />
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

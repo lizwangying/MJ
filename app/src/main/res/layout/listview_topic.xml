@@ -13,8 +13,17 @@
             android:id="@+id/image_topic_pic"
             android:layout_width="@dimen/height_120"
             android:layout_height="match_parent"
-            fresco:fadeDuration="300"
-            android:scaleType="center"
+            fresco:fadeDuration="500"
+            fresco:placeholderImage="@mipmap/icon_default"
+            fresco:placeholderImageScaleType="centerCrop"
+            fresco:progressBarImage="@mipmap/icon_loading"
+            fresco:progressBarImageScaleType="centerInside"
+            fresco:progressBarAutoRotateInterval="5000"
+            fresco:actualImageScaleType="focusCrop"
+            fresco:failureImage="@mipmap/icon_failure"
+            fresco:failureImageScaleType="centerInside"
+            fresco:retryImage="@mipmap/icon_refresh"
+            fresco:retryImageScaleType="centerCrop"
             />
     <LinearLayout
         android:layout_centerInParent="true"
@@ -37,6 +46,8 @@
             style="@style/TextViewParentGrey"
             android:textSize="@dimen/textSize_23"
             tools:text="4月"/>
+        <View
+            style="@style/DividerLineView"/>
     </LinearLayout>
     </RelativeLayout>
     <View
@@ -56,6 +67,7 @@
         android:paddingTop="@dimen/height_5"
         android:paddingBottom="@dimen/height_5"
         android:paddingLeft="@dimen/height_20"
+        android:background="@drawable/bg_black_transparent"
         android:paddingRight="@dimen/height_20">
 
         <TextView
@@ -92,6 +104,8 @@
                 android:drawableLeft="@mipmap/icon_like_grey"
                 android:drawablePadding="@dimen/width_10"
                 android:paddingLeft="@dimen/width_40"/>
+            <View
+                style="@style/DividerLineView"/>
         </LinearLayout>
 
     </LinearLayout>

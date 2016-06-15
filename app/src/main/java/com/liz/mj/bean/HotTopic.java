@@ -16,6 +16,15 @@ public class HotTopic extends BmobObject implements Serializable{
     private Integer seen;
     private Integer like;
     private BmobFile topicPic;
+    private MyUser topicAuthor;
+
+    public MyUser getTopicAuthor() {
+        return topicAuthor;
+    }
+
+    public void setTopicAuthor(MyUser topicAuthor) {
+        this.topicAuthor = topicAuthor;
+    }
 
     public BmobFile getTopicPic() {
         return topicPic;

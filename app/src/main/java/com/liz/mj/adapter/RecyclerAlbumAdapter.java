@@ -42,7 +42,7 @@ public class RecyclerAlbumAdapter extends RecyclerView.Adapter<RecyclerAlbumAdap
     }
 
     @Override
-    public void onBindViewHolder(RecyclerAlbumAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerAlbumAdapter.MyViewHolder holder, int position) {
         if (albumsList.size()>0) {
             MJAlbums albums = albumsList.get(position);
             holder.textAlbumName.setText(albums.getAlbumName());
@@ -55,6 +55,26 @@ public class RecyclerAlbumAdapter extends RecyclerView.Adapter<RecyclerAlbumAdap
 
         }else {
             Log.e("haha","albums数据没有~");
+        }
+
+        //如果设置了点击回调，则设置点击事件
+        if (myOnItemClickListener != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos = holder.getLayoutPosition();
+                    myOnItemClickListener.onItemClick(holder.itemView, pos);
+                }
+            });
+
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    int pos = holder.getLayoutPosition();
+                    myOnItemClickListener.onItemLongClick(holder.itemView, pos);
+                    return false;
+                }
+            });
         }
     }
 
@@ -80,5 +100,17 @@ public class RecyclerAlbumAdapter extends RecyclerView.Adapter<RecyclerAlbumAdap
         @Bind(R.id.text_album_description)
         TextView textAlbumDescription;
 
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+
+        void onItemLongClick(View view, int position);
+    }
+
+    private OnItemClickListener myOnItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.myOnItemClickListener = onItemClickListener;
     }
 }

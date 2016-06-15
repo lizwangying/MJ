@@ -54,7 +54,7 @@
     </style>
 
     <style name="DividerLineView">
-        <item name="android:background">@color/light_grey</item>
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:layout_height">@dimen/height_0.5</item>
         <item name="android:layout_width">match_parent</item>
     </style>
@@ -96,7 +96,7 @@
     <style name="DividerLineVertical">
         <item name="android:layout_width">@dimen/height_0.5</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/light_grey</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
     <style name="LinearLayoutVertical" parent="MeasureWrapContent">
         <item name="android:orientation">vertical</item>

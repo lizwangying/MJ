@@ -1,14 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.liz.mj.activity.AlbumsListActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+
+
+
+
+
+
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/image_album_cover"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_300"
+            fresco:fadeDuration="500"
+            fresco:placeholderImage="@mipmap/icon_default"
+            fresco:placeholderImageScaleType="centerCrop"
+            fresco:progressBarImage="@mipmap/icon_loading"
+            fresco:progressBarImageScaleType="centerInside"
+            fresco:progressBarAutoRotateInterval="5000"
+            fresco:actualImageScaleType="focusCrop"
+            fresco:failureImage="@mipmap/icon_failure"
+            fresco:failureImageScaleType="centerInside"
+            fresco:retryImage="@mipmap/icon_refresh"
+            fresco:retryImageScaleType="centerCrop"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/bg_black_transparent"
+            android:scaleType="centerCrop"/>
+        <LinearLayout
+            android:layout_margin="@dimen/height_30"
+            style="@style/LinearLayoutVertical">
+
+            <TextView
+                android:id="@+id/text_album_name"
+                style="@style/TextViewHeadLine1"
+                tools:text="Usernamsdfassfdasfgsgsdfgsfgsfgsfgsdfgsssssssssssssssssssfgsfdgsgsdfasdfe"
+                android:maxLines="3"
+                android:ellipsize="end"
+                />
+
+            <TextView
+                android:id="@+id/text_album_published_time"
+                style="@style/TextViewMoreStyle"
+                android:text="Level 1"
+                android:layout_marginTop="@dimen/height_10"
+                />
+            <TextView
+                android:id="@+id/text_album_des"
+                style="@style/TextViewMoreStyle"
+                android:text="Levsdfasdfasfdnamsdfassfdasfgsgsdfgsfgsfgnamsdfassfdasfgsgsdfgsfgsfgnamsdfassfdasfgsgsdfgsfgsfgnamsdfassfdasfgsgsdfgsfgsfgnamsdfassfdasfgsgsdfgsfgsfgnamsdfassfdasfgsgsdfgsfgsfgnamsdfassfdasfgsgsdfgsfgsfgnamsdfassfdasfgsgsdfgsfgsfgnamsdfassfdasfgsgsdfgsfgsfgnamsdfassfdasfgsgsdfgsfgsfgnamsdfassfdasfgsgsdfgsfgsfgnamsdfassfdasfgsgsdfgsfgsfgnamsdfassfdasfgsgsdfgsfgsfgnamsdfassfdasfgsgsdfgsfgsfgnamsdfassfdasfgsgsdfgsfgsfgnamsdfassfdasfgsgsdfgsfgsfgasdfasdfdel 1"
+                android:layout_marginTop="@dimen/height_10"
+                android:ellipsize="end"
+                android:maxLines="5"
+                />
+        </LinearLayout>
+    </RelativeLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_albums"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/grid_view_hot_albums"
+        tools:listitem="@layout/list_item_songs"
         />
-</RelativeLayout>
+
+</LinearLayout>

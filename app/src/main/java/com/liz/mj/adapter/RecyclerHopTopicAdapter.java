@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.liz.mj.R;
 import com.liz.mj.bean.HotTopic;
@@ -26,7 +28,7 @@ import butterknife.ButterKnife;
 public class RecyclerHopTopicAdapter extends RecyclerView.Adapter<RecyclerHopTopicAdapter.MyViewHolder> {
     private List<HotTopic> hotTopicsList;
     private Context context;
-
+    String imageUri;
     public RecyclerHopTopicAdapter(List<HotTopic> hotTopicsList, Context context) {
         this.hotTopicsList = hotTopicsList;
         this.context = context;
@@ -51,9 +53,24 @@ public class RecyclerHopTopicAdapter extends RecyclerView.Adapter<RecyclerHopTop
         holder.textViewTopic.setText(topic.getTopic());
         holder.textViewSeen.setText(topic.getSeen() + "");
         holder.textViewLike.setText(topic.getLike() + "");
-        String imageUri = hotTopicsList.get(position).getTopicPic().getFileUrl(context);
+        imageUri = hotTopicsList.get(position).getTopicPic().getFileUrl(context);
         Uri uri = Uri.parse(imageUri);
         holder.draweeView.setImageURI(uri);
+
+        //创建DraweeController
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                //加载的图片URI地址
+                .setUri(Uri.parse(imageUri))
+                //设置点击重试是否开启
+                .setTapToRetryEnabled(true)
+                //设置旧的Controller
+                .setOldController(holder.draweeView.getController())
+                //构建
+                .build();
+
+        //设置DraweeController
+        holder.draweeView.setController(controller);
+
 
         if (onItemtClickListener != null){
             holder.itemView.setOnClickListener(new View.OnClickListener() {

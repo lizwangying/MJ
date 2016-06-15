@@ -2,27 +2,26 @@ package com.liz.mj.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.liz.mj.BaseActivity;
 import com.liz.mj.R;
-import com.liz.mj.adapter.RecyclerHopTopicAdapter;
+import com.liz.mj.adapter.RecyclerCommentsAdapter;
 import com.liz.mj.bean.HotTopic;
+import com.liz.mj.bean.TopicComments;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.datatype.BmobQueryResult;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SQLQueryListener;
+import cn.bmob.v3.listener.FindListener;
 
 public class HotTopicDetail extends BaseActivity {
     @Bind(R.id.recycler_hot_topic)
@@ -31,7 +30,7 @@ public class HotTopicDetail extends BaseActivity {
     ImageView iconBack;
     @Bind(R.id.icon_add_comments)
     ImageView iconAddComments;
-    private RecyclerHopTopicAdapter adapterHotTopic;
+    private RecyclerCommentsAdapter adapterComments;
 
     @Bind(R.id.text_topic_title)
     TextView topicTitle;
@@ -49,41 +48,38 @@ public class HotTopicDetail extends BaseActivity {
         Intent intent = this.getIntent();
         topic = (HotTopic) intent.getSerializableExtra("Comments");
         topicTitle.setText(topic.getTopic());
+        recyclerViewHotTopic.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         imageHopTopic.setImageURI(Uri.parse(topic.getTopicPic().getFileUrl(HotTopicDetail.this)));
     }
 
     @Override
     public void initData() {
-        String bql = "select * from HotTopic";
-        new BmobQuery<HotTopic>().doSQLQuery(HotTopicDetail.this, bql, new SQLQueryListener<HotTopic>() {
+        BmobQuery<TopicComments> query = new BmobQuery<>();
+        query.addWhereEqualTo("commentTopic",topic);
+        query.order("-updatedAt");
+//        query.include("");
+        query.findObjects(getBaseContext(), new FindListener<TopicComments>() {
             @Override
-            public void done(BmobQueryResult<HotTopic> bmobQueryResult, BmobException e) {
-                if (e == null) {
-                    List<HotTopic> list = bmobQueryResult.getResults();
-                    if (list != null && list.size() > 0) {
-                        adapterHotTopic = new RecyclerHopTopicAdapter(list, HotTopicDetail.this);
-                        recyclerViewHotTopic.setAdapter(adapterHotTopic);
-                        adapterHotTopic.setOnItemtClickListener(new RecyclerHopTopicAdapter.OnItemtClickListener() {
-                            @Override
-                            public void onItemClick(View view, int position) {
-                                startActivity(new Intent(HotTopicDetail.this,HotTopicDetail.class));
-                            }
+            public void onSuccess(List<TopicComments> list) {
+                if (list!=null && list.size()>0){
+                    adapterComments = new RecyclerCommentsAdapter(HotTopicDetail.this,list);
+                    recyclerViewHotTopic.setAdapter(adapterComments);
+                    adapterComments.setOnItemClickListener(new RecyclerCommentsAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
 
-                            @Override
-                            public void onItemLongClick(View view, int position) {}
-                        });
+                        }
 
-                        //动态设置listview的长度
-//                        UIUtil.setListViewHeightBasedOnChildren(recyclerViewHotTopic);
+                        @Override
+                        public void onItemLongClick(View view, int position) {
 
-
-                    } else {
-                        Toast.makeText(HotTopicDetail.this, "无热门话题", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(HotTopicDetail.this, "查询失败", Toast.LENGTH_SHORT).show();
-                    Log.i("haha", "错误码：" + e.getErrorCode() + "，错误描述：" + e.getMessage());
+                        }
+                    });
                 }
+            }
+            @Override
+            public void onError(int i, String s) {
+
             }
         });
     }
@@ -95,7 +91,11 @@ public class HotTopicDetail extends BaseActivity {
                 finish();
                 break;
             case R.id.icon_add_comments:
-                startActivity(new Intent(HotTopicDetail.this,AddCommentsActivity.class));
+                Intent in = new Intent(HotTopicDetail.this,AddCommentsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Comments", getIntent().getSerializableExtra("Comments"));
+                in.putExtras(bundle);
+                startActivity(in);
                 break;
 
         }

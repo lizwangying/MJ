@@ -68,6 +68,11 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
+    public void onBackPressed() {
+
+    }
+
+    @Override
     public void onClick(View view) {
 //        switch (view.getId()){
 //            case R.id.alertdialog:

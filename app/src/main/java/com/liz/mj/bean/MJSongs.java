@@ -17,6 +17,8 @@ public class MJSongs extends BmobObject implements Serializable{
     private BmobFile songFile;
     private MJAlbums albumName;
     private String albumNameString;
+    private Integer musicTime;
+
 
     public String getAlbumNameString() {
         return albumNameString;
@@ -52,6 +54,14 @@ public class MJSongs extends BmobObject implements Serializable{
 
     public BmobFile getSongFile() {
         return songFile;
+    }
+
+    public Integer getMusicTime() {
+        return musicTime;
+    }
+
+    public void setMusicTime(Integer musicTime) {
+        this.musicTime = musicTime;
     }
 
     public void setSongFile(BmobFile songFile) {

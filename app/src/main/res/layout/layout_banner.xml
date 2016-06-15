@@ -7,7 +7,16 @@
         android:id="@+id/image_banner_drawee"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        fresco:fadeDuration="300"
-        android:scaleType="center"
+        fresco:fadeDuration="500"
+        fresco:placeholderImage="@mipmap/icon_holder"
+        fresco:placeholderImageScaleType="fitCenter"
+        fresco:progressBarImage="@mipmap/icon_loading"
+        fresco:progressBarImageScaleType="centerInside"
+        fresco:progressBarAutoRotateInterval="5000"
+        fresco:actualImageScaleType="focusCrop"
+        fresco:failureImage="@mipmap/icon_failure"
+        fresco:failureImageScaleType="centerInside"
+        fresco:retryImage="@mipmap/icon_refresh"
+        fresco:retryImageScaleType="centerCrop"
         />
 </LinearLayout>

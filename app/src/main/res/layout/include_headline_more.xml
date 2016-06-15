@@ -15,7 +15,7 @@
         <View
             style="@style/ViewHorizontalWeightWidget"/>
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/text_more"
-            style="@style/TextViewMoreStyle"/>
+            s-->tyle="@style/TextViewMoreStyle"/>
 </LinearLayout>

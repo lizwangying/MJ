@@ -3,11 +3,11 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 xmlns:fresco="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="200dp">
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/image_item_hot_topic"
-        android:layout_width="@dimen/height_170"
-        android:layout_height="@dimen/height_170"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"
         fresco:fadeDuration="300"
         />
@@ -16,6 +16,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg_black_transparent"/>
     <TextView
+        android:id="@+id/text_story_title"
         style="@style/TextViewHeadLine1"
         tools:text="dfsfsdfsdfsdfsdfasdfsdfasfsfdsf"
         android:layout_centerInParent="true"
@@ -44,4 +45,9 @@
             android:drawablePadding="@dimen/width_10"
             android:paddingLeft="@dimen/width_40"/>
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

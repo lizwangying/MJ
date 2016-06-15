@@ -67,8 +67,8 @@ public class FragmentSongs extends Fragment {
     TextView textFansGlobal;
     @Bind(R.id.text_warm_story)
     TextView textWarmStory;
-    @Bind(R.id.text_more)
-    TextView textMore;
+//    @Bind(R.id.text_more)
+//    TextView textMore;
 
     private RecyclerHopTopicAdapter adapterHotTopic;
 
@@ -263,15 +263,15 @@ public class FragmentSongs extends Fragment {
                         Toast.makeText(getActivity(), "无热门话题", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getActivity(), "查询失败", Toast.LENGTH_SHORT).show();
-                    Log.i("haha", "错误码：" + e.getErrorCode() + "，错误描述：" + e.getMessage());
+//                    Toast.makeText(getActivity(), "查询失败", Toast.LENGTH_SHORT).show();
+//                    Log.i("haha", "错误码：" + e.getErrorCode() + "，错误描述：" + e.getMessage());
                 }
             }
         });
 
     }
 
-    @OnClick({R.id.text_crown,R.id.text_more,R.id.text_fans_global,R.id.text_warm_story})
+    @OnClick({R.id.text_crown,R.id.text_fans_global,R.id.text_warm_story})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.text_crown:
@@ -283,9 +283,9 @@ public class FragmentSongs extends Fragment {
             case R.id.text_warm_story:
                 startActivity(new Intent(getActivity(), WarmStoryActivity.class));
                 break;
-            case R.id.text_more:
-                startActivity(new Intent(getActivity(), HotTopicDetail.class));
-                break;
+//            case R.id.text_more:
+//                startActivity(new Intent(getActivity(), HotTopicDetail.class));
+//                break;
         }
     }
 

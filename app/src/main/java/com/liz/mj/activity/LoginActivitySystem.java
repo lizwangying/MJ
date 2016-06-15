@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -12,8 +13,12 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,17 +28,24 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.liz.mj.BaseActivity;
 import com.liz.mj.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.listener.SaveListener;
+
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivitySystem extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivitySystem extends BaseActivity implements LoaderCallbacks<Cursor>
+{
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -49,18 +61,36 @@ public class LoginActivitySystem extends AppCompatActivity implements LoaderCall
 
     // UI references.
     private AutoCompleteTextView mEmailView;
+
+    private EditText mUserName;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-
+    private TextView textViewRegister;
+    private TextView textViewNotRegister;
+    @Bind(R.id.email_sign_in_button)
+     Button loginButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_activity_system);
+        setContentView(R.layout.layout_login);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
+        //注册加下划线
+        textViewRegister = (TextView) findViewById(R.id.text_register);
+        Spannable registerText = new SpannableString(textViewRegister.getText());
+        registerText.setSpan(new UnderlineSpan(),0,textViewRegister.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textViewRegister.setText(registerText);
+        textViewRegister.setOnClickListener(this);
+        //游客下划线
+        textViewNotRegister = (TextView) findViewById(R.id.text_not_register);
+        Spannable notRegisterText = new SpannableString(textViewNotRegister.getText());
+        notRegisterText.setSpan(new UnderlineSpan(),0,textViewNotRegister.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textViewNotRegister.setText(notRegisterText);
+        textViewNotRegister.setOnClickListener(this);
+        mUserName = (EditText) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -83,7 +113,27 @@ public class LoginActivitySystem extends AppCompatActivity implements LoaderCall
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        BmobUser user = BmobUser.getCurrentUser(LoginActivitySystem.this);
+        if (user != null){
+            startActivity(new Intent(LoginActivitySystem.this,MainActivity.class));
+        }
     }
+
+    @Override
+    protected void onBeforeSetContentLayout() {
+        setLayoutId(R.layout.layout_login);
+
+
+
+    }
+
+    @Override
+    public void initView() {
+
+    }
+
+
 
     private void populateAutoComplete() {
         getLoaderManager().initLoader(0, null, this);
@@ -149,7 +199,7 @@ public class LoginActivitySystem extends AppCompatActivity implements LoaderCall
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 6;
     }
 
     /**
@@ -229,6 +279,38 @@ public class LoginActivitySystem extends AppCompatActivity implements LoaderCall
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.text_not_register:
+                startActivity(new Intent(LoginActivitySystem.this,MainActivity.class));
+                break;
+            case R.id.text_register:
+                startActivity(new Intent(LoginActivitySystem.this,RegisterActivity.class));
+                break;
+            case R.id.email_sign_in_button:
+
+                Log.e("haha", "onClick: sign in");
+                BmobUser user = new BmobUser();
+                user.setUsername(mUserName.getText().toString());
+                user.setPassword(mPasswordView.getText().toString());
+                user.login(LoginActivitySystem.this, new SaveListener() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(LoginActivitySystem.this,"登录成功",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+                        Toast.makeText(LoginActivitySystem.this,"登录失败",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                break;
+
+        }
     }
 
 

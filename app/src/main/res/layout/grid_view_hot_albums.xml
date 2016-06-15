@@ -19,7 +19,17 @@
             android:layout_width="@dimen/height_170"
             android:layout_height="@dimen/height_170"
             android:scaleType="centerCrop"
-            fresco:fadeDuration="300"
+            fresco:fadeDuration="500"
+            fresco:placeholderImage="@mipmap/icon_default"
+            fresco:placeholderImageScaleType="centerCrop"
+            fresco:progressBarImage="@mipmap/icon_loading"
+            fresco:progressBarImageScaleType="centerInside"
+            fresco:progressBarAutoRotateInterval="5000"
+            fresco:actualImageScaleType="focusCrop"
+            fresco:failureImage="@mipmap/icon_failure"
+            fresco:failureImageScaleType="centerInside"
+            fresco:retryImage="@mipmap/icon_refresh"
+            fresco:retryImageScaleType="centerCrop"
             />
 
 

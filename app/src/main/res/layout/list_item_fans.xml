@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="horizontal">
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/image_user_icon"
+            android:layout_width="@dimen/height_120"
+            android:layout_height="match_parent"
+            fresco:fadeDuration="300"
+            android:scaleType="center"
+            />
+    <View
+        style="@style/DividerLineVertical"/>
+
+    <LinearLayout
+        style="@style/LinearLayoutVertical"
+        android:layout_width="match_parent"
+        android:paddingTop="@dimen/height_5"
+        android:paddingBottom="@dimen/height_5"
+        android:paddingLeft="@dimen/height_20"
+        android:background="@drawable/bg_black_transparent"
+        android:paddingRight="@dimen/height_20">
+
+        <TextView
+            android:id="@+id/text_time"
+            style="@style/TextViewParentGrey"
+            tools:text="19：00"/>
+
+        <TextView
+            android:id="@+id/text_topic"
+            style="@style/TextViewParentGrey"
+            android:textSize="@dimen/textSize_18"
+            android:layout_marginTop="@dimen/height_10"
+            android:maxLines="3"
+            android:ellipsize="end"
+            tools:text="公共场合抽烟有没有素质"/>
+
+        <LinearLayout
+            style="@style/LinearLayoutHorizontal"
+            android:layout_marginTop="@dimen/width_10"
+            >
+
+            <TextView
+                android:id="@+id/text_seen"
+                style="@style/TextViewParentGrey"
+                android:text="12"
+                android:drawableLeft="@mipmap/icon_seen"
+                android:drawablePadding="@dimen/width_10"
+                />
+
+            <TextView
+                android:id="@+id/text_like"
+                style="@style/TextViewParentGrey"
+                android:text="12"
+                android:drawableLeft="@mipmap/icon_like_grey"
+                android:drawablePadding="@dimen/width_10"
+                android:paddingLeft="@dimen/width_40"/>
+            <View
+                style="@style/DividerLineView"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        style="@style/DividerLineView"/>
+    <!--</RelativeLayout>-->
+
+</LinearLayout>
