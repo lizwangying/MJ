@@ -6,4 +6,4 @@
 
 #App运行效果截图展示
 登录页面  
-![image](https://github.com/lizwangying/MJ/screenshot/login_screenshot.png)
+![image](https://github.com/lizwangying/MJ/blob/master/screenshot/login_screenshot.png)
