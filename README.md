@@ -5,22 +5,22 @@
 所以，开发这款App是由于对Michael Jackson的狂热喜爱加上追星类的App的火爆，很有市场，既能够向世界传递正能量，又能够锻炼自己的编程能力，觉得这是一件很有意义的事情。
 
 #App运行效果截图展示
-*登录页面*     
+##登录页面##     
 ![image](https://github.com/lizwangying/MJ/blob/master/screenshot/login_screenshot.png)  
 
-*主页*  
+##主页##  
 ![image](https://github.com/lizwangying/MJ/blob/master/screenshot/index_screeenshot.png)  
 
-*专辑页*  
+##专辑页##  
 ![image](https://github.com/lizwangying/MJ/blob/master/screenshot/album_srceenshot.png)  
 
-*发现页*  
+##发现页##  
 ![image](https://github.com/lizwangying/MJ/blob/master/screenshot/find_screenshot.png)  
 
-*专辑详情页*  
+##专辑详情页##  
 ![image](https://github.com/lizwangying/MJ/blob/master/screenshot/album_detail_screenshot.png)  
 
-*歌曲播放页*  
+##歌曲播放页##  
 ![image](https://github.com/lizwangying/MJ/blob/master/screenshot/play_srceenshot.png)  
 
 
