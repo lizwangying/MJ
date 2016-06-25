@@ -11,7 +11,8 @@
 ![image](https://github.com/lizwangying/MJ/blob/master/screenshot/login_screenshot.png)  
 
 ##主页    
-功能要凸显主次，主页的功能主要是Michael的人生简介、全球粉丝、和爱的故事，而热议话题只是起到填充的作用，使主页界面不那么单调。所以将主要三个功能摆放在Banner之下，填充空白的任务交给热议话题，选用列表的样式布局。主页的设计如图所示。  
+功能要凸显主次，主页的功能主要是Michael的人生简介、全球粉丝、和爱的故事，而热议话题只是起到填充的作用，使主页界面不那么单调。所以将主要三个功能摆放在Banner之下，填充空白的任务交给热议话题，选用列表的样式布局。主页的设计如图所示。   
+ 
 ![image](https://github.com/lizwangying/MJ/blob/master/screenshot/index_screeenshot.png)  
 
 ##专辑页    
