@@ -2,6 +2,7 @@ package com.liz.mj.bean;
 
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.datatype.BmobRelation;
 
 /**
  * description:
@@ -16,6 +17,24 @@ public class MJAlbums extends BmobObject {
     private String albumDescription;
     private String albumId;
     private String albumPlayNum;
+    private BmobRelation albumIncludeSongs;
+    private MJSongs includingSongs;
+
+    public MJSongs getIncludingSongs() {
+        return includingSongs;
+    }
+
+    public void setIncludingSongs(MJSongs includingSongs) {
+        this.includingSongs = includingSongs;
+    }
+
+    public BmobRelation getAlbumIncludeSongs() {
+        return albumIncludeSongs;
+    }
+
+    public void setAlbumIncludeSongs(BmobRelation albumIncludeSongs) {
+        this.albumIncludeSongs = albumIncludeSongs;
+    }
 
     public String getAlbumPlayNum() {
         return albumPlayNum;

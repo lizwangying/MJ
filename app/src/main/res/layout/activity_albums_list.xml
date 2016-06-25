@@ -6,15 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/maybe"
     tools:context="com.liz.mj.activity.AlbumsListActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="300dp">
-
-
-
-
-
 
 
         <com.facebook.drawee.view.SimpleDraweeView
@@ -33,11 +30,13 @@
             fresco:retryImage="@mipmap/icon_refresh"
             fresco:retryImageScaleType="centerCrop"
             />
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:src="@drawable/bg_black_transparent"
             android:scaleType="centerCrop"/>
+
         <LinearLayout
             android:layout_margin="@dimen/height_30"
             style="@style/LinearLayoutVertical">
@@ -56,6 +55,7 @@
                 android:text="Level 1"
                 android:layout_marginTop="@dimen/height_10"
                 />
+
             <TextView
                 android:id="@+id/text_album_des"
                 style="@style/TextViewMoreStyle"
@@ -66,11 +66,25 @@
                 />
         </LinearLayout>
     </RelativeLayout>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view_albums"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/list_item_songs"
-        />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_albums"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/list_item_songs"
+            />
+
+        <TextView
+            android:id="@+id/text_waitting_song"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:text="后台没有添加歌曲，等待后台添加"/>
+    </RelativeLayout>
 
 </LinearLayout>

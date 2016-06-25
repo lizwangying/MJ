@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.datatype.BmobRelation;
 
 /**
  * description:
@@ -18,7 +19,15 @@ public class MJSongs extends BmobObject implements Serializable{
     private MJAlbums albumName;
     private String albumNameString;
     private Integer musicTime;
+    private BmobRelation belongAlbum;
 
+    public BmobRelation getBelongAlbum() {
+        return belongAlbum;
+    }
+
+    public void setBelongAlbum(BmobRelation belongAlbum) {
+        this.belongAlbum = belongAlbum;
+    }
 
     public String getAlbumNameString() {
         return albumNameString;

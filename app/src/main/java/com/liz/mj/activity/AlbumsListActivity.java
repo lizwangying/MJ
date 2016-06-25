@@ -3,7 +3,9 @@ package com.liz.mj.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,9 +34,12 @@ public class AlbumsListActivity extends BaseActivity {
     TextView albumTime;
     @Bind(R.id.text_album_des)
     TextView albumDes;
-
+    @Bind(R.id.text_waitting_song)
+    TextView textWaittingSong;
+    private String albumId;
     private MJAlbums albums;
     private RecyclerSongsAdapter songsAdapter;
+
     @Override
     protected void onBeforeSetContentLayout() {
         setLayoutId(R.layout.activity_albums_list);
@@ -53,16 +58,19 @@ public class AlbumsListActivity extends BaseActivity {
         Uri uri = Uri.parse(imageUri);
         cover.setImageURI(uri);
 
+        recyclerAlbums.setLayoutManager(new LinearLayoutManager(AlbumsListActivity.this));
     }
 
     @Override
     public void initData() {
         BmobQuery<MJSongs> query = new BmobQuery<>();
-        query.addWhereEqualTo("MJAlbums",albums);
+        query.addWhereEqualTo("albumId",albums.getObjectId());
         query.findObjects(AlbumsListActivity.this, new FindListener<MJSongs>() {
             @Override
             public void onSuccess(final List<MJSongs> list) {
                 if (list != null && list.size() > 0) {
+
+                    Log.e("haha", "------------------ size>0");
                     songsAdapter = new RecyclerSongsAdapter(AlbumsListActivity.this, list);
                     recyclerAlbums.setAdapter(songsAdapter);
                     songsAdapter.setOnItemClickListener(new RecyclerSongsAdapter.OnItemClickListener() {
@@ -74,13 +82,19 @@ public class AlbumsListActivity extends BaseActivity {
                             intent.putExtras(bundle);
                             startActivity(intent);
                         }
+
                         @Override
                         public void onItemLongClick(View view, int position) {
                             Toast.makeText(AlbumsListActivity.this, "long click" + position, Toast.LENGTH_SHORT).show();
                         }
                     });
+                    textWaittingSong.setVisibility(View.GONE);
+                    recyclerAlbums.setVisibility(View.VISIBLE);
                 } else {
-                    Toast.makeText(AlbumsListActivity.this, "怎么回事？没有数据？淡定，让我想想~~~", Toast.LENGTH_SHORT).show();
+                    Log.e("haha", "------------------ size==0");
+
+                    textWaittingSong.setVisibility(View.VISIBLE);
+                    recyclerAlbums.setVisibility(View.GONE);
                 }
             }
 

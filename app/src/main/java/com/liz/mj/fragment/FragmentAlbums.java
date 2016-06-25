@@ -145,6 +145,12 @@ public class FragmentAlbums extends Fragment {
         recyclerViewSongs.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerViewsVideos.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+
+
+//        //
+//        MJAlbums albums = new MJAlbums();
+
+
     }
 
     /**
@@ -158,6 +164,25 @@ public class FragmentAlbums extends Fragment {
             public void done(BmobQueryResult<MJAlbums> bmobQueryResult, BmobException e) {
                 if (e == null) {
                     albumsList = bmobQueryResult.getResults();
+//                    MJAlbums al = albumsList.get(1);
+//                    MJSongs song = new MJSongs();
+//                    song.setObjectId("xP0ehhhs");
+//                    al.setIncludingSongs(song);
+//                    al.save(getActivity(), new SaveListener() {
+//                        @Override
+//                        public void onSuccess() {
+//                            Log.i("life","评论发表成功");
+//                        }
+//
+//                        @Override
+//                        public void onFailure(int i, String s) {
+//
+//                        }
+//                    });
+
+
+
+
                     if (albumsList != null && albumsList.size() > 0) {
 //                        albumGridView.setAdapter(new AlbumGridViewAdapter(albumsList,getActivity()));
                         albumAdapter = new RecyclerAlbumAdapter(albumsList, getActivity());
@@ -195,6 +220,26 @@ public class FragmentAlbums extends Fragment {
             public void done(BmobQueryResult<MJSongs> bmobQueryResult, BmobException e) {
                 if (e == null) {
                     songsLists = bmobQueryResult.getResults();
+
+//                    //添加多对多关联
+//                    MJAlbums a = new MJAlbums();
+//                    MJSongs s = songsLists.get(0);
+//                    a.setObjectId("qe6TDDDH");
+//                    BmobRelation relation = new BmobRelation();
+//                    relation.add(a);
+//                    s.setBelongAlbum(relation);
+//                    s.update(getActivity(), new UpdateListener() {
+//                        @Override
+//                        public void onSuccess() {
+//                            Toast.makeText(getActivity(),"添加关系成功",Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        @Override
+//                        public void onFailure(int i, String s) {
+//
+//                        }
+//                    });
+
                     if (songsLists != null && songsLists.size() > 0) {
                         songsAdapter = new RecyclerSongsAdapter(getActivity(), songsLists);
                         recyclerViewSongs.setAdapter(songsAdapter);
